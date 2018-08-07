@@ -24,8 +24,8 @@ router.get('/', (req, res) => {
 // child Clothing schema.
 const options = { discriminatorKey: 'type' },
 ClothingProduct = Product.discriminator('Clothing', new mongoose.Schema({ size: String }, options));
-// shirt1 = new ClothingProduct({ name: 'shirt', price: 50, size: 'Small' });
-// shirt1.save();
+shirt1 = new ClothingProduct({ name: 'Light Laguna Shirt Experience', price: 64, size: 'Medium', images: [{src: 'http://via.placeholder.com/300x250', alt:'laguna shirt experience'}] });
+shirt1.save();
 // shirt2 = new ClothingProduct({ name: 'Blue Sport t-shirt', price: 34, size: 'Large' });
 // shirt2.save();
 // shirt3 = new ClothingProduct({ name: 'Polo t-shirt', price: 71, size: 'Large' });
