@@ -33,7 +33,7 @@ export default class Product extends Component {
           }
         </div>
         <div className="product-actions">
-          <Action text="Add to wishlist" />
+          <Action text="Add to wishlist" url="http://127.0.0.1:7070/users/5b646febeebb915ff8b221be" id={product._id} />
         </div>
       </div>
     );

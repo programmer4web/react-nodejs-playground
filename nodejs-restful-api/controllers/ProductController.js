@@ -8,7 +8,7 @@ router.use(bodyParser.json());
 
 const Product = require('../models/Product');
 
-// RETURNS ALL THE USERS IN THE DATABASE
+// RETURNS ALL THE PRODUCTS IN THE DATABASE
 router.get('/', (req, res) => {
     Product.find({}, (err, products) => {
         if (err) return res.status(500).send("There was a problem finding the products.");
