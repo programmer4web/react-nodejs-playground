@@ -32,5 +32,6 @@ ClothingProduct = Product.discriminator('Clothing', new mongoose.Schema({ size: 
 // shirt3.save();
 // shirt4 = new ClothingProduct({ name: 'Golf t-shirt', price: 55, size: 'Medium' });
 // shirt4.save();
-
+//shirt5 = new ClothingProduct({ name: 'Golf asdasf', price:{ currency:"eur",amount:76}, size: 'Medium' });
+//shirt5.save();
 module.exports = router;
