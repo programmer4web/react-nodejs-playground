@@ -1,5 +1,16 @@
-.featured-products {
-  // .action {
-  //   float: right;
-  // }
+// .featured-products {
+// }
+
+.featured-product-line {
+  margin-bottom: 10px;
+}
+
+.featured-products-list {
+  list-style-type: none;
+  padding:0;
+}
+
+.featured-products-container {
+  overflow: scroll;
+  max-height: 700px;
 }

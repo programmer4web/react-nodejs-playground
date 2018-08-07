@@ -3,6 +3,7 @@
   background-color: #fff;
   color: #444;
   padding: 24px;
+  border-radius: 5px;
 }
 
 .product-properties {
@@ -16,7 +17,12 @@
   color: #555;
 }
 
+.product-price, .product-size {
+  line-height: 1.5;
+  font-family:sans-serif;
+}
+
 .product-actions {
-  display: inline-block;
+  margin-top: 12px;
   float: right;
 }

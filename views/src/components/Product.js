@@ -27,8 +27,8 @@ export default class Product extends Component {
           </div>
           <div className="product-size">Size: {product.size}</div>
           {image && image.src &&
-            <div className="product-images">
-              <img src={image.src}/>
+            <div className="product-image">
+              <img src={image.src} width={100} height={100} />
             </div>
           }
         </div>
