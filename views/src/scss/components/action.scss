@@ -1,0 +1,16 @@
+.action {
+  margin-left: 24px;
+  display: inline-block;
+  padding: 12px;
+  border: 1px solid #0098C9;
+  border-radius: 2px;
+  color: #0098C9;
+  cursor: pointer;
+  user-select: none;
+}
+
+.action:hover {
+  background-color: #0098C9;
+  color: #fff;
+  transform: 0.3s;
+}

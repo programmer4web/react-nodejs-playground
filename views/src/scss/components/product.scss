@@ -1,0 +1,22 @@
+.product {
+  min-width: 300px;
+  background-color: #fff;
+  color: #444;
+  padding: 24px;
+}
+
+.product-properties {
+  margin-top: 12px;
+  display: inline-block;
+}
+
+.product-title {
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.product-actions {
+  display: inline-block;
+  float: right;
+}
