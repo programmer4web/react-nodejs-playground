@@ -9,8 +9,9 @@ export default class Product extends Component {
   }
 
   render() {
-    const product = this.state.data;
-    console.log(product);
+    const product = this.state.data,
+      images = product.images,
+      image = product.images && product.images[0];
     return (
       <div className="product">
         <div className="product-header">
@@ -25,6 +26,11 @@ export default class Product extends Component {
           }
           </div>
           <div className="product-size">Size: {product.size}</div>
+          {image && image.src &&
+            <div className="product-images">
+              <img src={image.src}/>
+            </div>
+          }
         </div>
         <div className="product-actions">
           <Action text="Add to wishlist" />

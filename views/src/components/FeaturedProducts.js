@@ -26,7 +26,7 @@ export default class FeaturedProducts extends Component {
       <div className="featured-products">
         <h3>Featured Products</h3>
         <ul>
-          {this.state.products.map(data => <li><Product data={data} /></li>)}
+          {this.state.products.map((data, idx) => <li  key={"product-line-" + idx}><Product data={data} /></li>)}
         </ul>
       </div>
     );

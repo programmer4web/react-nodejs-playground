@@ -9,6 +9,7 @@ const mongoose = require('mongoose'),
     amount: Number,
     currency: String
   },
+  images: [],
   package: String,
 }, options);
 
