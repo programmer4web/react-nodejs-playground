@@ -1,6 +1,7 @@
 body {
-  background: #000428;
-  color: #f8f8f8;
+  background: #fefefe; // light-gray
+  color: #f8f8f8; //dark-gray
+  font-family: sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -9,5 +10,31 @@ h1 {
   color: #f8f8f8;
   font-family: helvetica;
 }
+
+h2 {
+  color: #4e4e4e;
+  font-family: sans-serif;
+}
+
+.row {
+  display: flex;
+}
+.box {
+  display: flex;
+  & + .box {
+    margin-left: 24px;
+  }
+}
+
+.module {
+  padding: 24px;
+  background-color: #a7a7a7; // medium-gray
+  box-shadow: 0 1px 1.5rem rgba(4, 26, 55, 0.25);
+  & + .module {
+    margin-top: 12px;
+  }
+}
+
+
 
 @import 'components/index.scss';

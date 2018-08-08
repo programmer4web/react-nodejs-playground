@@ -21,14 +21,14 @@ export default class Product extends Component {
           <div className="product-price">Price:
           {
           product.price && product.price.amount && product.price.currency ?
-            product.price.amount + ' ' + product.price.currency 
+            product.price.amount + ' ' + product.price.currency
             : product.price ? product.price + 'EUR':''
           }
           </div>
           <div className="product-size">Size: {product.size}</div>
           {image && image.src &&
             <div className="product-image">
-              <img src={image.src} width={100} height={100} />
+              <img className="product-img" src={image.src} width={200} height={100} />
             </div>
           }
         </div>

@@ -16,9 +16,7 @@ export default class FeaturedProducts extends Component {
     axios.get('http://127.0.0.1:7070/products').then( res => {
       const products = res.data;
       this.setState({products});
-    }
-
-    )
+    })
   }
 
   render() {
