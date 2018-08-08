@@ -8,8 +8,11 @@ export default class FeaturedProducts extends Component {
     super(props);
 
     this.state = {
-      products: []
+      products: [],
+      productsMode: ''
     }
+
+    this.handleMode = this.handleMode.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +26,15 @@ export default class FeaturedProducts extends Component {
     return (
       <div className="featured-products">
         <h3>Featured Products</h3>
+        <div className="featured-product-mode" onClick={this.handleMode} >{(this.state.productsMode == '') ? 'Simple' : 'Detailed'}</div>
         <ul className="featured-products-list">
-          {this.state.products.map((data, idx) => <li className="featured-product-line" key={"product-line-" + idx}><Product data={data} /></li>)}
+          {this.state.products.map((data, idx) => <li className="featured-product-line" key={"product-line-" + idx}><Product data={data} mode={this.state.productsMode} /></li>)}
         </ul>
       </div>
     );
+  }
+
+  handleMode(e) {
+    this.setState({productsMode: (this.state.productsMode === '') ? 'simple': ''});
   }
 }
