@@ -1,5 +1,6 @@
 import React from 'react';
 import FeaturedProducts from './FeaturedProducts.js';
+import WishList from './WishList.js';
 
 const formatName = user => `${user.firstName} ${user.lastName}`;
 
@@ -21,7 +22,7 @@ const Home = () => (
       </div>
       <div className="box">
         <div className="module">
-          {/*<WishList />*/}
+          <WishList />
         </div>
       </div>
     </div>
