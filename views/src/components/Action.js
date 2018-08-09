@@ -11,35 +11,40 @@ export default class Action extends Component {
   }
   handleClickAction(e) {
     e.preventDefault();
-    const productId = this.props.id;
-    if (this.props.job == 'add') {
-      Axios.get(this.props.url).then(response => {
+    const props = this.props,
+      productId = props.id,
+      job = props.job,
+      url = props.url;
+
+    if (job == 'add') {
+      Axios.get(url).then(response => {
         const userWishlist = response.data.wishlist,
           idx = userWishlist.indexOf(productId);
 
         if (idx === -1) {
           userWishlist.push(productId);
-          Axios.put(this.props.url, { wishlist: userWishlist }).then(res => {
-            this.setState({ wishlist: res.wishlist });
-            
+          Axios.put(url, { wishlist: userWishlist }).then(res => {
+            // this.props.callback(res.wishlist);
           });
-        } {
+        } else {
           console.warn('product is already in wishlist.');
         }
       });
-    }
-    else if (this.props.job == 'delete') {
-      Axios.get(this.props.url).then(response => {
+    } else if (job == 'delete') {
+      Axios.get(url).then(response => {
         let userWishlist = response.data.wishlist;
         const idx = userWishlist.indexOf(productId);
         userWishlist.splice(idx,1);
 
-        Axios.put(this.props.url, { wishlist: userWishlist }).then(res => {
-          //this.setState({ wishlist: res.wishlist });
-          this.props.callback(res.wishlist);
+        Axios.put(url, { wishlist: userWishlist }).then(res => {
+          // handle empty wishlist, avoid showing all products that api returns
+          if(Array.isArray(userWishlist) && userWishlist.length > 0) {
+            this.props.callback(res.wishlist);
+          } else {
+            this.props.callback();
+          }
         });
-      }
-      )
+      });
     }
   }
 }

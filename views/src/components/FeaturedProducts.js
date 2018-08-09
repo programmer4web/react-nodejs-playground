@@ -28,7 +28,7 @@ export default class FeaturedProducts extends Component {
         <h3>Featured Products</h3>
         <div className="featured-product-mode" onClick={this.handleMode} >{(this.state.productsMode == '') ? 'Simple' : 'Detailed'}</div>
         <ul className="featured-products-list">
-          {this.state.products.map((data, idx) => <li className="featured-product-line" key={"product-line-" + idx}>
+          {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
             <Product data={data} mode={this.state.productsMode} actionText={"Add to wishlist"} actionJob={"add"}/>
           </li>)}
         </ul>
