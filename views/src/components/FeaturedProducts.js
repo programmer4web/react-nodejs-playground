@@ -30,7 +30,7 @@ export default class FeaturedProducts extends Component {
         <ul className="featured-products-list">
           {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
             <Product data={data} mode={this.state.productsMode}
-              actionText={"Add to wishlist"} actionJob={"add"} actionCallback={this.props.callback}/>
+              actionText={"Add to wishlist"} actionJob={"add"} addProduct={this.props.wishlistAddProduct}/>
           </li>)}
         </ul>
       </div>

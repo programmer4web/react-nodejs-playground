@@ -27,7 +27,7 @@ export default class WishList extends Component {
         <h3>WishList</h3>
         <ul className="wishlist-products-list">
           {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
-            <Product data={data} actionText={"Remove from wishlist"} actionJob={"delete"} actionCallback={this.updateData}
+            <Product data={data} actionText={"Remove from wishlist"} actionJob={"delete"}
               removeProduct={this.removeProduct} /></li>
           )}
         </ul>
@@ -52,6 +52,24 @@ export default class WishList extends Component {
             this.setState({ products: result.data });
           })
       })
+  }
+
+  addProduct(productId) {
+    const url = `${this.props.serverUrl}users/${this.props.userId}`; // get user data url
+
+    Axios.get(url).then(response => {
+      const userWishlist = response.data.wishlist,
+        idx = userWishlist.indexOf(productId);
+
+      if (idx === -1) {
+        userWishlist.push(productId);
+        Axios.put(url, { wishlist: userWishlist }).then(res => {
+          this.updateData(res.wishlist);
+        });
+      } else {
+        console.warn('product is already in wishlist.');
+      }
+    });
   }
 
   removeProduct(productId) {

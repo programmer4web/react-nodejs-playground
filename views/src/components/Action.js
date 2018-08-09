@@ -17,19 +17,7 @@ export default class Action extends Component {
       url = props.url;
 
     if (job == 'add') {
-      Axios.get(url).then(response => {
-        const userWishlist = response.data.wishlist,
-          idx = userWishlist.indexOf(productId);
-
-        if (idx === -1) {
-          userWishlist.push(productId);
-          Axios.put(url, { wishlist: userWishlist }).then(res => {
-            this.props.callback(res.wishlist);
-          });
-        } else {
-          console.warn('product is already in wishlist.');
-        }
-      });
+      this.props.addProduct(productId);
     } else if (job == 'delete') {
       this.props.removeProduct(productId);
     }

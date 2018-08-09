@@ -15,10 +15,15 @@ class Home extends React.Component {
     super(props);
 
     this.wishlistUpdateData = this.wishlistUpdateData.bind(this);
+    this.wishlistAddProduct = this.wishlistAddProduct.bind(this);
   }
 
   wishlistUpdateData(ids) {
-    this.refs.wishlist1.updateData(ids);
+    this.refs.wishlist.updateData(ids);
+  }
+
+  wishlistAddProduct(id) {
+    this.refs.wishlist.addProduct(id);
   }
 
   render() {
@@ -30,12 +35,12 @@ class Home extends React.Component {
         <div className="row">
           <div className="box">
             <div className="module">
-              <FeaturedProducts serverUrl={serverUrl} callback={this.wishlistUpdateData}/>
+              <FeaturedProducts serverUrl={serverUrl} wishlistAddProduct={this.wishlistAddProduct} callback={this.wishlistUpdateData}/>
             </div>
           </div>
           <div className="box">
             <div className="module">
-              <WishList ref="wishlist1" serverUrl={serverUrl} userId={user._id}/>
+              <WishList ref="wishlist" serverUrl={serverUrl} userId={user._id}/>
             </div>
           </div>
         </div>
