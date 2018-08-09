@@ -27,8 +27,8 @@ export default class WishList extends Component {
         <h3>WishList</h3>
         <ul className="wishlist-products-list">
           {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
-              <Product data={data} actionText={"Remove from wishlist"} actionJob={"delete"} actionCallback={this.updateData}
-                removeProduct={this.removeProduct} /></li>
+            <Product data={data} actionText={"Remove from wishlist"} actionJob={"delete"} actionCallback={this.updateData}
+              removeProduct={this.removeProduct} /></li>
           )}
         </ul>
       </div>
@@ -37,32 +37,30 @@ export default class WishList extends Component {
 
   updateData(ids) {
     const serverUrl = this.props.serverUrl;
-      // console.log(ids);
-      Axios.get(`${serverUrl}users/5b646febeebb915ff8b221be`).then(res => {
-          const userWishlist = res.data.wishlist;
+      Axios.get(`${serverUrl}users/${this.props.userId}`).then(res => {
+        const userWishlist = res.data.wishlist;
 
-          if(!Array.isArray(userWishlist) || userWishlist.length === 0) {
-            this.setState({ products: [] });
-            return;
-          }
-          Axios.get(`${serverUrl}products/`,
-              {
-                  'params': { 'ids': userWishlist },
-                  'paramsSerializer': params => qs.stringify(params, { arrayFormat: 'repeat' })
-              }).then(result => {
-                  // console.log(result.data);
-                  this.setState({ products: result.data });
-              })
+        if(!Array.isArray(userWishlist) || userWishlist.length === 0) {
+          this.setState({ products: [] });
+          return;
+        }
+        Axios.get(`${serverUrl}products/`,
+          {
+            'params': { 'ids': userWishlist },
+            'paramsSerializer': params => qs.stringify(params, { arrayFormat: 'repeat' })
+          }).then(result => {
+            this.setState({ products: result.data });
+          })
       })
   }
 
   removeProduct(productId) {
-    const url = this.props.serverUrl + 'users/5b646febeebb915ff8b221be';
+    const url = `${this.props.serverUrl}users/${this.props.userId}`; // get user data url
 
-    Axios.get(url).then(response => { // get wishlist
+    Axios.get(url).then(response => {
       let userWishlist = response.data.wishlist;
       const idx = userWishlist.indexOf(productId);
-      userWishlist.splice(idx,1);
+      userWishlist.splice(idx, 1);
 
       // update wishlist
       Axios.put(url, { wishlist: userWishlist }).then(res => {

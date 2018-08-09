@@ -4,6 +4,7 @@ import WishList from './WishList.js';
 
 const formatName = user => `${user.firstName} ${user.lastName}`,
   user = {
+    _id: '5b646febeebb915ff8b221be',
     firstName: 'John',
     lastName: 'Doe',
   },
@@ -29,12 +30,12 @@ class Home extends React.Component {
         <div className="row">
           <div className="box">
             <div className="module">
-              <FeaturedProducts callback={this.wishlistUpdateData}/>
+              <FeaturedProducts serverUrl={serverUrl} callback={this.wishlistUpdateData}/>
             </div>
           </div>
           <div className="box">
             <div className="module">
-              <WishList ref="wishlist1" serverUrl={serverUrl} />
+              <WishList ref="wishlist1" serverUrl={serverUrl} userId={user._id}/>
             </div>
           </div>
         </div>
