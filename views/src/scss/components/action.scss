@@ -1,5 +1,4 @@
 .action {
-  margin-left: 24px;
   display: inline-block;
   padding: 12px;
   border: 1px solid #0098C9;
@@ -11,6 +10,11 @@
   text-transform: uppercase;
   cursor: pointer;
   user-select: none;
+
+  &.small {
+    padding: 6px 12px;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
 }
 
 .action:hover {

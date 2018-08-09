@@ -27,7 +27,7 @@ export default class WishList extends Component {
         <h3>WishList</h3>
         <ul className="wishlist-products-list">
           {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
-            <Product data={data} actionText={"Remove from wishlist"} actionJob={"delete"}
+            <Product data={data} actionText={"Remove from wishlist"} actionJob="remove"
               removeProduct={this.removeProduct} /></li>
           )}
         </ul>

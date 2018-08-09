@@ -8,36 +8,52 @@ export default class FeaturedProducts extends Component {
     super(props);
 
     this.state = {
-      products: [],
+      products: [], // before any search
+      visibleProducts: [],
       productsMode: ''
     }
 
     this.handleMode = this.handleMode.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
     axios.get(`${this.props.serverUrl}products`).then(res => {
       const products = res.data || [];
-      this.setState({ products });
+      this.setState({ products, visibleProducts: products });
     })
+  }
+
+  handleMode(e) {
+    this.setState({ productsMode: (this.state.productsMode === '') ? 'simple' : '' });
+  }
+
+  handleSearch(e) {
+    e.preventDefault();
+    const value = e.target.value,
+      visibleProducts = this.state.products.filter(
+        product => product.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+      );
+    this.setState({visibleProducts});
   }
 
   render() {
     return (
       <div className="featured-products">
         <h3>Featured Products</h3>
-        <div className="featured-product-mode" onClick={this.handleMode} >{(this.state.productsMode == '') ? 'Simple' : 'Detailed'}</div>
+        <div className="featured-products-actions">
+          <div className="featured-product-mode action small" onClick={this.handleMode} title="Change display mode of products">
+            {(this.state.productsMode == '') ? 'Simple' : 'Detailed'}
+          </div>
+          <input className="featured-product-search" type="text" placeholder="Search products" onChange={this.handleSearch} />
+        </div>
         <ul className="featured-products-list">
-          {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
+          {this.state.visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
             <Product data={data} mode={this.state.productsMode}
               actionText={"Add to wishlist"} actionJob={"add"} addProduct={this.props.wishlistAddProduct}/>
           </li>)}
         </ul>
       </div>
     );
-  }
-
-  handleMode(e) {
-    this.setState({ productsMode: (this.state.productsMode === '') ? 'simple' : '' });
   }
 }
