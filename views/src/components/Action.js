@@ -24,7 +24,7 @@ export default class Action extends Component {
         if (idx === -1) {
           userWishlist.push(productId);
           Axios.put(url, { wishlist: userWishlist }).then(res => {
-            // this.props.callback(res.wishlist);
+            this.props.callback(res.wishlist);
           });
         } else {
           console.warn('product is already in wishlist.');
