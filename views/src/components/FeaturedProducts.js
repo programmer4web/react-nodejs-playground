@@ -38,6 +38,7 @@ export default class FeaturedProducts extends Component {
   }
 
   render() {
+    const visibleProducts = this.state.visibleProducts;
     return (
       <div className="featured-products">
         <h3>Featured Products</h3>
@@ -45,13 +46,22 @@ export default class FeaturedProducts extends Component {
           <div className="featured-product-mode action small" onClick={this.handleMode} title="Change display mode of products">
             {(this.state.productsMode == '') ? 'Simple' : 'Detailed'}
           </div>
+          <select className="featured-products-sort">
+            <option value="">No sorting</option>
+            <option value="asc">Ascending</option>
+            <option value="asc">Descending</option>
+          </select>
           <input className="featured-product-search" type="text" placeholder="Search products" onChange={this.handleSearch} />
         </div>
         <ul className="featured-products-list">
-          {this.state.visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
-            <Product data={data} mode={this.state.productsMode}
-              actionText={"Add to wishlist"} actionJob={"add"} addProduct={this.props.wishlistAddProduct}/>
-          </li>)}
+          {(visibleProducts && visibleProducts.length > 0) ?
+            this.state.visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
+              <Product data={data} mode={this.state.productsMode}
+                actionText={"Add to wishlist"} actionJob={"add"} addProduct={this.props.wishlistAddProduct}/>
+              </li>)
+           :
+            <div className="featured-products-empty">List is empty.</div>
+          }
         </ul>
       </div>
     );

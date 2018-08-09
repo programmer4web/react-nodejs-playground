@@ -1,8 +1,8 @@
 .featured-products {
-  padding-right: 20px;
-  max-height: 650px;
+  padding: 12px;
   min-width: 535px;
-  overflow-y: scroll;
+  border: 1px solid #dadada;
+  border-radius: 5px;
 }
 
 .featured-products-actions {
@@ -12,6 +12,7 @@
 
 .featured-product-search {
   margin-left: 30px;
+  padding: 2px 4px;
 }
 
 .featured-product-line {
@@ -20,10 +21,12 @@
 
 .featured-products-list {
   list-style-type: none;
-  padding:0;
+  padding: 0 16px 0 0;
+  max-height: 650px;
+  overflow-y: scroll;
 }
 
-.featured-products-container {
-  overflow: scroll;
-  max-height: 700px;
+.featured-products-empty {
+  padding: 64px;
+  text-align: center;
 }
