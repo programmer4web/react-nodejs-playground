@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 import qs from 'qs';
 
 import Product from './Product.js';
@@ -14,6 +14,7 @@ export default class WishList extends Component {
     }
 
     this.updateData = this.updateData.bind(this);
+    this.removeProduct = this.removeProduct.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +27,8 @@ export default class WishList extends Component {
         <h3>WishList</h3>
         <ul className="wishlist-products-list">
           {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
-              <Product data={data} actionText={"Remove from wishlist"} actionJob={"delete"} actionCallback={this.updateData}/></li>
+              <Product data={data} actionText={"Remove from wishlist"} actionJob={"delete"} actionCallback={this.updateData}
+                removeProduct={this.removeProduct} /></li>
           )}
         </ul>
       </div>
@@ -36,14 +38,14 @@ export default class WishList extends Component {
   updateData(ids) {
     const serverUrl = this.props.serverUrl;
       // console.log(ids);
-      axios.get(`${serverUrl}users/5b646febeebb915ff8b221be`).then(res => {
+      Axios.get(`${serverUrl}users/5b646febeebb915ff8b221be`).then(res => {
           const userWishlist = res.data.wishlist;
 
           if(!Array.isArray(userWishlist) || userWishlist.length === 0) {
             this.setState({ products: [] });
             return;
           }
-          axios.get(`${serverUrl}products/`,
+          Axios.get(`${serverUrl}products/`,
               {
                   'params': { 'ids': userWishlist },
                   'paramsSerializer': params => qs.stringify(params, { arrayFormat: 'repeat' })
@@ -52,5 +54,25 @@ export default class WishList extends Component {
                   this.setState({ products: result.data });
               })
       })
+  }
+
+  removeProduct(productId) {
+    const url = this.props.serverUrl + 'users/5b646febeebb915ff8b221be';
+
+    Axios.get(url).then(response => { // get wishlist
+      let userWishlist = response.data.wishlist;
+      const idx = userWishlist.indexOf(productId);
+      userWishlist.splice(idx,1);
+
+      // update wishlist
+      Axios.put(url, { wishlist: userWishlist }).then(res => {
+        // handle empty wishlist, avoid showing all products that api returns
+        if(Array.isArray(userWishlist) && userWishlist.length > 0) {
+          this.updateData(res.wishlist);
+        } else {
+          this.updateData();
+        }
+      });
+    });
   }
 }

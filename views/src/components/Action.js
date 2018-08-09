@@ -31,20 +31,7 @@ export default class Action extends Component {
         }
       });
     } else if (job == 'delete') {
-      Axios.get(url).then(response => {
-        let userWishlist = response.data.wishlist;
-        const idx = userWishlist.indexOf(productId);
-        userWishlist.splice(idx,1);
-
-        Axios.put(url, { wishlist: userWishlist }).then(res => {
-          // handle empty wishlist, avoid showing all products that api returns
-          if(Array.isArray(userWishlist) && userWishlist.length > 0) {
-            this.props.callback(res.wishlist);
-          } else {
-            this.props.callback();
-          }
-        });
-      });
+      this.props.removeProduct(productId);
     }
   }
 }
