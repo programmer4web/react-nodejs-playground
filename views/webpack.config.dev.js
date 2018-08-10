@@ -14,5 +14,8 @@ module.exports = merge(webpackCommonConfig, {
 	devtool: "source-map",
 	devServer: {
 		hot: true,
+	},
+	performance: { // added by Me
+		hints: false
 	}
 });
