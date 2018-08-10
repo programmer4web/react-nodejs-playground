@@ -36,27 +36,54 @@ export default class FeaturedProducts extends Component {
     e.preventDefault();
     const value = e.target.value;
 
-    if(task === 'search') {
-      this.filters = Object.assign({}, this.filters, {search: value});
-      this.filterUpdated(task, value);
-    }
+    this.filters = Object.assign({}, this.filters, {[task]: value});
+    this.filterUpdated(task, value);
+
   }
 
   filterUpdated(task, value) {
-    console.log('filterUpdated here.');
-    const filters = this.filters;
-    let visibleProducts = [];
+    const filters = this.filters,
+      searchText = filters.search;
+    let visibleProducts = this.state.products;
 
-    if(task === 'search') {
-      console.log('search: ', value, visibleProducts.length);
-      visibleProducts = this.state.products.filter(product => product.name.toLowerCase().indexOf(value.toLowerCase()) > -1);
+    if(searchText !== '') {
+      visibleProducts = visibleProducts.filter(
+        prod => prod.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+      );
     }
-    console.log(visibleProducts.length);
+
+    const sort = filters.sort;
+    if(sort !== '') {
+      visibleProducts = this.sortProductsByName(visibleProducts, sort);
+    }
     this.setState({visibleProducts});
   }
 
+  // Sort Products by Name and keep products with the same name in the original order
+  sortProductsByName(products, sort) {
+    let indexed = products.map((product, idx) => {
+      return { product: product, idx: idx }
+    });
+
+    indexed.sort((a, b) => {
+      const nameA = a.product.name.toLowerCase(),
+        nameB = b.product.name.toLowerCase();
+
+      if(sort == 'asc') {
+        if(nameA < nameB) return -1;
+        if(nameA > nameB) return 1;
+        return a.idx - b.idx;
+      } else {
+        if(nameA < nameB) return 1;
+        if(nameA > nameB) return -1;
+        return b.idx - a.idx;
+      }
+    });
+    return indexed.map((item => item.product));
+  }
+
   render() {
-    console.log('Render here.');
+    // console.log('Render here.');
     const visibleProducts = this.state.visibleProducts;
     return (
       <div className="featured-products">
@@ -65,10 +92,10 @@ export default class FeaturedProducts extends Component {
           <div className="featured-product-mode action small" onClick={this.handleMode} title="Change display mode of products">
             {(this.state.productsMode == '') ? 'Simple' : 'Detailed'}
           </div>
-          <select className="featured-products-sort">
+          <select className="featured-products-sort" onChange={(e)=> this.applyFilter('sort', e)}>
             <option value="">No sorting</option>
             <option value="asc">Ascending</option>
-            <option value="asc">Descending</option>
+            <option value="desc">Descending</option>
           </select>
           <input className="featured-product-search" type="text" placeholder="Search products" onChange={(e) => this.applyFilter('search', e)} />
         </div>
