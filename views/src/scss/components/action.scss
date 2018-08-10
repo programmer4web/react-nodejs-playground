@@ -14,13 +14,15 @@
   &.small {
     padding: 6px 12px;
     min-width: 60px;
+    font-size: 13.333px;
+    font-weight: 400;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #fff;
   }
 }
 
 .action:hover {
   background-color: #0098C9;
   color: #fff;
-  transform: 0.3s;
+  transition: 0.3s;
 }

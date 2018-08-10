@@ -1,11 +1,14 @@
 .wishlist-products {
-    padding-right: 20px;
-    max-height: 650px;
-    min-width: 535px; 
-    overflow-y: scroll;
+    padding: 12px;
+    min-width: 535px;
+    border: 1px solid #dadada;
+    border-radius: 5px;
 }
 
 .wishlist-products-list {
-    list-style-type: none;
+    margin-top: 60px;
     padding:0;
+    max-height: 650px;
+    overflow-y: scroll;
+    list-style-type: none;
 }

@@ -25,11 +25,12 @@ export default class Product extends Component {
             : product.price ? product.price + 'EUR':''
           }
           </div>
-          <div className="product-size">Size: {product.size}</div>
+          {product.size && <div className="product-size">Size: {product.size}</div>}
+          {product.power && <div className="product-power">Power: {product.power}</div>}
         </div>
         <div className="product-details">
           <div className="product-image">
-            <img className="product-img" src={image && image.src ? image.src : 'http://placehold.it/300x250/637d9f/ffffff'} width={200} height={100} />
+            <img className="product-img" src={image && image.src ? image.src : 'http://placehold.it/150x150/637d9f/ffffff'} width={150} height={150} />
           </div>
           <div className="product-actions">
             <Action text={this.props.actionText} job={this.props.actionJob} id={product._id}
