@@ -11,10 +11,14 @@ export default class FeaturedProducts extends Component {
       products: [], // before any search
       visibleProducts: [],
       productsMode: ''
-    }
+    };
 
+    this.filters = {
+      sort: '',
+      search: ''
+    };
     this.handleMode = this.handleMode.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.applyFilter = this.applyFilter.bind(this);
   }
 
   componentDidMount() {
@@ -28,16 +32,31 @@ export default class FeaturedProducts extends Component {
     this.setState({ productsMode: (this.state.productsMode === '') ? 'simple' : '' });
   }
 
-  handleSearch(e) {
+  applyFilter(task, e) {
     e.preventDefault();
-    const value = e.target.value,
-      visibleProducts = this.state.products.filter(
-        product => product.name.toLowerCase().indexOf(value.toLowerCase()) > -1
-      );
+    const value = e.target.value;
+
+    if(task === 'search') {
+      this.filters = Object.assign({}, this.filters, {search: value});
+      this.filterUpdated(task, value);
+    }
+  }
+
+  filterUpdated(task, value) {
+    console.log('filterUpdated here.');
+    const filters = this.filters;
+    let visibleProducts = [];
+
+    if(task === 'search') {
+      console.log('search: ', value, visibleProducts.length);
+      visibleProducts = this.state.products.filter(product => product.name.toLowerCase().indexOf(value.toLowerCase()) > -1);
+    }
+    console.log(visibleProducts.length);
     this.setState({visibleProducts});
   }
 
   render() {
+    console.log('Render here.');
     const visibleProducts = this.state.visibleProducts;
     return (
       <div className="featured-products">
@@ -51,7 +70,7 @@ export default class FeaturedProducts extends Component {
             <option value="asc">Ascending</option>
             <option value="asc">Descending</option>
           </select>
-          <input className="featured-product-search" type="text" placeholder="Search products" onChange={this.handleSearch} />
+          <input className="featured-product-search" type="text" placeholder="Search products" onChange={(e) => this.applyFilter('search', e)} />
         </div>
         <ul className="featured-products-list">
           {(visibleProducts && visibleProducts.length > 0) ?
