@@ -13,6 +13,8 @@
 
   &.small {
     padding: 6px 12px;
+    min-width: 60px;
+    text-align: center;
     background-color: rgba(255, 255, 255, 0.7);
   }
 }
