@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import FeaturedProducts from './FeaturedProducts.js';
 import WishList from './WishList.js';
+import Departments from './Departments.js';
 
 const formatName = user => `${user.firstName} ${user.lastName}`,
   user = {
@@ -38,6 +39,7 @@ class Home extends React.Component {
           <TabList>
             <Tab>Products</Tab>
             <Tab>Clients</Tab>
+            <Tab>Departments</Tab>
           </TabList>
           <TabPanel>
             <div className="row">
@@ -55,6 +57,9 @@ class Home extends React.Component {
           </TabPanel>
           <TabPanel>
             <h2>Any content 2</h2>
+          </TabPanel>
+          <TabPanel>
+            <Departments serverUrl={serverUrl} userId={user._id}/>
           </TabPanel>
         </Tabs>
       </div>

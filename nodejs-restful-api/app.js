@@ -24,10 +24,12 @@ const express = require('express'),
   });
 
 const controllersPath = './controllers/',
-  UserController = require(controllersPath + 'UserController')
-  ProductController = require(controllersPath + 'ProductController');
+  UserController = require(controllersPath + 'UserController'),
+  ProductController = require(controllersPath + 'ProductController'),
+  DepartmentController = require(controllersPath + 'DepartmentController');
 
 app.use('/users', UserController);
 app.use('/products', ProductController);
+app.use('/departments', DepartmentController);
 
 module.exports = app;

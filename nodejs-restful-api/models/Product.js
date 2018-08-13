@@ -1,8 +1,8 @@
 const mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  options = { discriminatorKey: 'type' },
 
- options = { discriminatorKey: 'type' },
-
- productSchema = new mongoose.Schema({
+ productSchema = new Schema({
    name: String,
    description: String,
    price: {
@@ -11,6 +11,8 @@ const mongoose = require('mongoose'),
   },
   images: [],
   package: String,
+  department: [{type: Schema.Types.ObjectId, ref: 'Department'}],
+  status: String
 }, options);
 
 mongoose.model('Product', productSchema);
