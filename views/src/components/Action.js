@@ -7,7 +7,10 @@ export default class Action extends Component {
   }
 
   render() {
-    return <div className="action" onClick={this.handleClickAction}>{this.props.text}</div>
+    return <div className="action" onClick={this.handleClickAction}>{
+      this.props.job == "remove" ?
+      <span className="action-placeholder">{this.props.placeholder}</span> : this.props.text
+    }</div>
   }
 
   handleClickAction(e) {

@@ -97,7 +97,7 @@ export default class FeaturedProducts extends Component {
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
-          <input className="featured-product-search" type="text" placeholder="Search products" onChange={(e) => this.applyFilter('search', e)} />
+          <input className="featured-products-search" type="text" placeholder="Search products" onChange={(e) => this.applyFilter('search', e)} />
         </div>
         <ul className="featured-products-list">
           {(visibleProducts && visibleProducts.length > 0) ?

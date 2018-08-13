@@ -1,18 +1,23 @@
 .featured-products {
   padding: 12px;
-  min-width: 535px;
   border: 1px solid #dadada;
   border-radius: 5px;
 }
 
 .featured-products-actions {
-  display: flex;
-  justify-content:space-between;
+  @media screen and (min-width: 480px) {
+    display: flex;
+    justify-content:space-between;
+  }
 }
 
-.featured-product-search {
+.featured-products-sort, .featured-products-search {
   margin-left: 30px;
   padding: 2px 4px;
+
+  @media screen and (max-width: 480px) {
+    margin: 15px;
+  }
 }
 
 .featured-product-line {
@@ -23,7 +28,7 @@
   list-style-type: none;
   padding: 0 16px 0 0;
   max-height: 650px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .featured-products-empty {

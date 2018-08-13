@@ -1,4 +1,5 @@
 .action {
+  margin-left: 15px;
   display: inline-block;
   padding: 12px;
   border: 1px solid #0098C9;
@@ -25,4 +26,8 @@
   background-color: #0098C9;
   color: #fff;
   transition: 0.3s;
+}
+
+.action-placeholder::first-letter {
+  text-transform: lowercase;
 }

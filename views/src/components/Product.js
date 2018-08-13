@@ -33,7 +33,8 @@ export default class Product extends Component {
             <img className="product-img" src={image && image.src ? image.src : 'http://placehold.it/150x150/637d9f/ffffff'} width={150} height={150} />
           </div>
           <div className="product-actions">
-            <Action text={this.props.actionText} job={this.props.actionJob} id={product._id}
+            <Action text={this.props.actionText} placeholder={this.props.actionPlaceholder} 
+              job={this.props.actionJob} id={product._id}
               addProduct={this.props.addProduct} removeProduct={this.props.removeProduct} />
           </div>
         </div>

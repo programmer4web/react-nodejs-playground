@@ -1,5 +1,12 @@
 .product {
-  min-width: 474px;
+  @media screen and (min-width: 480px) {
+    min-width: 400px;
+  }
+  @media screen and (max-width: 480px) {
+    min-width: 320px;
+    margin: 0 auto;
+  }
+
   background-color: #fff;
   color: #444;
   padding: 24px 12px;
@@ -34,6 +41,10 @@
     overflow: initial;
     text-overflow: initial;
   }
+
+  @media screen and (max-width: 480px) {
+    max-width: 300px;
+  }
 }
 
 .product-properties {
@@ -41,9 +52,10 @@
   display: inline-block;
 
   .simple & {
-    max-width: 128px;
-    margin-top: 0;
-    margin-left: 12px;
+    display: none;
+  //   max-width: 128px;
+  //   margin-top: 0;
+  //   margin-left: 12px;
   }
 }
 
@@ -55,6 +67,7 @@
 
 .product-details {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -84,9 +97,8 @@
 
 .product-actions {
   margin-top: 12px;
-  float: right;
 
   .simple & {
-    display: none;
+
   }
 }

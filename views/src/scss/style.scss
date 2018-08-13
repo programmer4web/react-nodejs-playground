@@ -16,9 +16,18 @@ h2 {
   font-family: sans-serif;
 }
 
+
+.container {
+  @media only screen and (min-width: 1024px) {
+    min-width: 1024px;
+  }
+}
+
 .row {
   display: flex;
+  flex-wrap: wrap;
 }
+
 .box {
   display: flex;
   & + .box {
@@ -27,7 +36,7 @@ h2 {
 }
 
 .module {
-  padding: 24px;
+  padding: 12px;
   background-color: #89a0c1; // gray-blue
   box-shadow: 0 1px 1.5rem rgba(4, 26, 55, 0.25);
   & + .module {

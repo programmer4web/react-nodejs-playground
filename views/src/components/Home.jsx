@@ -1,4 +1,6 @@
 import React from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+
 import FeaturedProducts from './FeaturedProducts.js';
 import WishList from './WishList.js';
 
@@ -28,22 +30,33 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="content">
+      <div className="content container">
         <div className="row">
           <h2>Hello, {formatName(user)}!</h2>
         </div>
-        <div className="row">
-          <div className="box">
-            <div className="module">
-              <FeaturedProducts serverUrl={serverUrl} wishlistAddProduct={this.wishlistAddProduct} callback={this.wishlistUpdateData}/>
+        <Tabs className="dashboard-tabs">
+          <TabList>
+            <Tab>Products</Tab>
+            <Tab>Clients</Tab>
+          </TabList>
+          <TabPanel>
+            <div className="row">
+              <div className="box">
+                <div className="module">
+                  <FeaturedProducts serverUrl={serverUrl} wishlistAddProduct={this.wishlistAddProduct} callback={this.wishlistUpdateData}/>
+                </div>
+              </div>
+              <div className="box">
+                <div className="module">
+                  <WishList ref="wishlist" serverUrl={serverUrl} userId={user._id}/>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="box">
-            <div className="module">
-              <WishList ref="wishlist" serverUrl={serverUrl} userId={user._id}/>
-            </div>
-          </div>
-        </div>
+          </TabPanel>
+          <TabPanel>
+            <h2>Any content 2</h2>
+          </TabPanel>
+        </Tabs>
       </div>
     );
   }
