@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import FeaturedProducts from './FeaturedProducts.js';
 import WishList from './WishList.js';
 import Departments from './Departments.js';
+import {MyTabs, MyTabsHeader} from './Tabs.js';
 
 const formatName = user => `${user.firstName} ${user.lastName}`,
   user = {
@@ -19,6 +20,8 @@ class Home extends React.Component {
 
     this.wishlistUpdateData = this.wishlistUpdateData.bind(this);
     this.wishlistAddProduct = this.wishlistAddProduct.bind(this);
+
+    this.mytabsSelectedChanged = this.mytabsSelectedChanged.bind(this);
   }
 
   wishlistUpdateData(ids) {
@@ -27,6 +30,11 @@ class Home extends React.Component {
 
   wishlistAddProduct(id) {
     this.refs.wishlist.addProduct(id);
+  }
+
+  // my tabs selected changed managed from outside of tabs
+  mytabsSelectedChanged(idx) {
+    this.refs.myTabs.selectedChanged(idx);
   }
 
   render() {
@@ -40,6 +48,7 @@ class Home extends React.Component {
             <Tab>Products</Tab>
             <Tab>Clients</Tab>
             <Tab>Departments</Tab>
+            <Tab>Tabs component</Tab>
           </TabList>
           <TabPanel>
             <div className="row">
@@ -60,6 +69,20 @@ class Home extends React.Component {
           </TabPanel>
           <TabPanel>
             <Departments serverUrl={serverUrl} userId={user._id}/>
+          </TabPanel>
+          <TabPanel>
+
+            <MyTabs ref="myTabs">
+              <MyTabsHeader selectedChanged={this.mytabsSelectedChanged} >
+                <div dataId="tab1">Tab 1</div>
+                <div dataId="tab2">Tab 2</div>
+                <div dataId="tab3">Tab 3</div>
+              </MyTabsHeader>
+              <div>Content of tab 1</div>
+              <div>Content of tab 2</div>
+              <div>Content of tab 3</div>
+            </MyTabs>
+
           </TabPanel>
         </Tabs>
       </div>

@@ -1,0 +1,40 @@
+.my-tabs {
+  color: #24292e; // medium-black
+
+  .my-tabs-header {
+    border-bottom: 1px solid #89a0c1;
+  }
+}
+
+.my-tabs-name {
+  display: inline-block;
+  color: #24292e; // medium-black
+  user-select: none;
+  cursor: pointer;
+
+  & + .my-tabs-name {
+    margin-left: 10px;
+  }
+
+  &:hover {
+    color: #0098C9;
+  }
+
+  &.selected {
+    border: 1px solid #89a0c1;
+    border-bottom: 0px;
+    border-radius: 4px 4px 0 0;
+    padding: 10px 10px 5px;
+    color: #0098C9;
+
+    &:after {
+      content: "";
+      top: 100%;
+      background-color: #fff;
+    }
+  }
+}
+
+.my-tabs-tab {
+  display: none;
+}
