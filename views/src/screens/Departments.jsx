@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+const serverUrl = 'http://127.0.0.1:7070/';
+
 export default class Departments extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ export default class Departments extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${this.props.serverUrl}departments`).then(result => {
+    axios.get(`${serverUrl}departments`).then(result => {
       this.setState({departments: result.data});
     });
   }
@@ -26,7 +28,7 @@ export default class Departments extends Component {
       console.warn('Department id is undefined.');
       return;
     }
-    axios.get(`${this.props.serverUrl}products`, {
+    axios.get(`${serverUrl}products`, {
       "params":{"department": departmentId}}).then(result => {
         console.log(result.data);
         this.setState({products: result.data});

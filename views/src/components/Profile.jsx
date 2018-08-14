@@ -1,4 +1,5 @@
 import React, { Component, Button } from 'react';
+import Action from './Action.js';
 
 export default class Profile extends Component {
   handleSubmit (e) {
@@ -26,7 +27,7 @@ export default class Profile extends Component {
               <li><p><img src="https://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/phone-call-active-512.png" className="icon-image" />{phoneNo}</p></li>
               <li><p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png" className="icon-image" />{email}</p></li>
               <li><p><img src="https://cdn1.iconfinder.com/data/icons/social-messaging-productivity-1-1/128/gender-male2-512.png" className="icon-image" />{shortBio}</p></li>
-              {/* <li><Button bsStyle="primary">Edit profile</Button></li> */}
+              <Action text="Edit Profile"/>
             </ul>
           </div>
         </div>

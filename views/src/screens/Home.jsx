@@ -1,11 +1,10 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import FeaturedProducts from './FeaturedProducts.js';
-import Profile from './Profile.jsx';
-import WishList from './WishList.js';
-import Departments from './Departments.js';
-import {MyTabs, MyTabsHeader} from './Tabs.js';
+import FeaturedProducts from '../components/FeaturedProducts.js';
+import Profile from '../components/Profile.jsx';
+import WishList from '../components/WishList.js';
+import {MyTabs, MyTabsHeader} from '../components/Tabs.js';
 
 const formatName = user => `${user.firstName} ${user.lastName}`,
   user = {
@@ -48,7 +47,6 @@ class Home extends React.Component {
           <TabList>
             <Tab>Products</Tab>
             <Tab>Profile</Tab>
-            <Tab>Departments</Tab>
             <Tab>Tabs component</Tab>
           </TabList>
           <TabPanel>
@@ -68,9 +66,6 @@ class Home extends React.Component {
           <TabPanel>
             <h2>Profile</h2>
             <Profile />
-          </TabPanel>
-          <TabPanel>
-            <Departments serverUrl={serverUrl} userId={user._id}/>
           </TabPanel>
           <TabPanel>
 

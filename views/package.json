@@ -22,10 +22,12 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "history": "^4.7.2",
     "qs": "6.5.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-flexview": "^4.0.1",
+    "react-router": "^4.3.1",
     "react-tabs": "^2.2.2"
   },
   "devDependencies": {

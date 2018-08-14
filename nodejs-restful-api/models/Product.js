@@ -11,7 +11,7 @@ const mongoose = require('mongoose'),
   },
   images: [],
   package: String,
-  department: [{type: Schema.Types.ObjectId, ref: 'Department'}],
+  departments: [{type: Schema.Types.ObjectId, ref: 'Department'}],
   status: String
 }, options);
 
