@@ -2,6 +2,7 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import FeaturedProducts from './FeaturedProducts.js';
+import Profile from './Profile.jsx';
 import WishList from './WishList.js';
 import Departments from './Departments.js';
 import {MyTabs, MyTabsHeader} from './Tabs.js';
@@ -46,7 +47,7 @@ class Home extends React.Component {
         <Tabs className="dashboard-tabs">
           <TabList>
             <Tab>Products</Tab>
-            <Tab>Clients</Tab>
+            <Tab>Profile</Tab>
             <Tab>Departments</Tab>
             <Tab>Tabs component</Tab>
           </TabList>
@@ -65,7 +66,8 @@ class Home extends React.Component {
             </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <h2>Profile</h2>
+            <Profile />
           </TabPanel>
           <TabPanel>
             <Departments serverUrl={serverUrl} userId={user._id}/>
