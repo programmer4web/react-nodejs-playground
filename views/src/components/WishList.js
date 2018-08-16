@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import Axios from 'axios';
 import qs from 'qs';
 
 import Product from './Product.js';
 
-export default class WishList extends Component {
+const mapStateToProps = state => {
+  return {userWishlist: state.user.wishlist};
+};
+
+class WishList extends Component {
   constructor(props) {
     super(props);
 
@@ -55,24 +60,6 @@ export default class WishList extends Component {
       })
   }
 
-  addProduct(productId) {
-    const url = `${this.props.serverUrl}users/${this.props.userId}`; // get user data url
-
-    Axios.get(url).then(response => {
-      const userWishlist = response.data.wishlist,
-        idx = userWishlist.indexOf(productId);
-
-      if (idx === -1) {
-        userWishlist.push(productId);
-        Axios.put(url, { wishlist: userWishlist }).then(res => {
-          this.updateData(res.wishlist);
-        });
-      } else {
-        console.warn('product is already in wishlist.');
-      }
-    });
-  }
-
   removeProduct(productId) {
     const url = `${this.props.serverUrl}users/${this.props.userId}`; // get user data url
 
@@ -93,3 +80,5 @@ export default class WishList extends Component {
     });
   }
 }
+
+export default connect(mapStateToProps)(WishList);

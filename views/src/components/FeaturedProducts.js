@@ -103,7 +103,7 @@ export default class FeaturedProducts extends Component {
           {(visibleProducts && visibleProducts.length > 0) ?
             this.state.visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
               <Product data={data} mode={this.state.productsMode}
-                actionText={"Add to wishlist"} actionJob={"add"} addProduct={this.props.wishlistAddProduct}/>
+                actionText={"Add to wishlist"} actionJob={"add"} />
               </li>)
            :
             <div className="featured-products-empty">List is empty.</div>

@@ -1,6 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux';
+import {wishlistAddProduct} from '../actions/index';
 
-export default class Action extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId))
+  };
+}
+
+class Action extends Component {
   constructor(props) {
     super(props);
     this.handleClickAction = this.handleClickAction.bind(this);
@@ -20,14 +28,14 @@ export default class Action extends Component {
       job = props.job;
 
     if (job == 'add') {
-      this.props.addProduct(productId);
+      this.props.wishlistAddProduct(productId);
     } else if (job == 'remove') {
       this.props.removeProduct(productId);
     }
   }
 }
 
-
+export default connect(null, mapDispatchToProps)(Action);
 
 // Action.propTypes = {
 //   text: PropTypes.string

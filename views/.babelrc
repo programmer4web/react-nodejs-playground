@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["env", { 
+    ["env", {
       "targets": {
         "browsers": "last 2 versions"
       },
@@ -9,5 +9,6 @@
     }],
     "react",
     "react-hmre"
-  ]
+  ],
+  "plugins": ["transform-object-rest-spread"]
 }
