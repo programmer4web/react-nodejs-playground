@@ -6,7 +6,9 @@ import qs from 'qs';
 import Product from './Product.js';
 
 const mapStateToProps = state => {
-  return {userWishlist: state.user.wishlist};
+  return {
+    wishlistProducts: state.user.wishlistProducts
+  };
 };
 
 class WishList extends Component {
@@ -23,7 +25,7 @@ class WishList extends Component {
   }
 
   componentDidMount() {
-    this.updateData();
+    // this.updateData();
   }
 
   render() {
@@ -31,7 +33,7 @@ class WishList extends Component {
       <div className="wishlist-products">
         <h3>WishList</h3>
         <ul className="wishlist-products-list">
-          {this.state.products.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
+          {this.props.wishlistProducts && this.props.wishlistProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
             <Product data={data} actionText={"Remove from wishlist"} actionJob="remove"
               actionPlaceholder="- wishlist"
               removeProduct={this.removeProduct} mode="simple" /></li>
@@ -42,22 +44,23 @@ class WishList extends Component {
   }
 
   updateData(ids) {
-    const serverUrl = this.props.serverUrl;
-      Axios.get(`${serverUrl}users/${this.props.userId}`).then(res => {
-        const userWishlist = res.data.wishlist;
-
-        if(!Array.isArray(userWishlist) || userWishlist.length === 0) {
-          this.setState({ products: [] });
-          return;
-        }
-        Axios.get(`${serverUrl}products/`,
-          {
-            'params': { 'ids': userWishlist },
-            'paramsSerializer': params => qs.stringify(params, { arrayFormat: 'repeat' })
-          }).then(result => {
-            this.setState({ products: result.data });
-          })
-      })
+    console.log('OLD update data. keeped for remove action until we implement it with redux!');
+    // const serverUrl = this.props.serverUrl;
+    //   Axios.get(`${serverUrl}users/${this.props.userId}`).then(res => {
+    //     const userWishlist = res.data.wishlist;
+    //
+    //     if(!Array.isArray(userWishlist) || userWishlist.length === 0) {
+    //       this.setState({ products: [] });
+    //       return;
+    //     }
+    //     Axios.get(`${serverUrl}products/`,
+    //       {
+    //         'params': { 'ids': userWishlist },
+    //         'paramsSerializer': params => qs.stringify(params, { arrayFormat: 'repeat' })
+    //       }).then(result => {
+    //         this.setState({ products: result.data });
+    //       })
+    //   })
   }
 
   removeProduct(productId) {
