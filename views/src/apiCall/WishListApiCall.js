@@ -1,6 +1,14 @@
 import Axios from 'axios';
 import qs from 'qs';
 
+export const wishlistGetIdsApiCall = url => {
+  return new Promise((resolve, reject) => {
+    Axios.get(url).then(response => {
+      resolve(response.data.wishlist);
+    }).catch((err)=> console.warn('err: ',err));
+  });
+}
+
 export const wishlistAddProductApiCall = (productId, url) => {
   return new Promise((resolve, reject) => {
     Axios.get(url).then(response => {
@@ -17,7 +25,7 @@ export const wishlistAddProductApiCall = (productId, url) => {
         console.warn('product is already in wishlist.');
         resolve(response.data.wishlist);
       }
-    });
+    }).catch((err)=> console.warn(err));
   });
 }
 
@@ -33,6 +41,6 @@ export const wishlistGetProductsApiCall = (userWishlist, url) => {
         'paramsSerializer': params => qs.stringify(params, { arrayFormat: 'repeat' })
       }).then(result => {
         resolve(result.data);
-      })
+      }).catch((err)=> console.warn(err));
   });
 }

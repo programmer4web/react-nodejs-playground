@@ -4,12 +4,19 @@ import Axios from 'axios';
 import qs from 'qs';
 
 import Product from './Product.js';
+import {wishlistGetIds} from '../actions/index';
 
 const mapStateToProps = state => {
-  return {
-    wishlistProducts: state.user.wishlistProducts
-  };
-};
+    return {
+      wishlistProducts: state.user.wishlistProducts
+    };
+  },
+  mapDispatchToProps = dispatch => {
+    return {
+      wishlistGetIds: () => dispatch(wishlistGetIds())
+    };
+  }
+;
 
 class WishList extends Component {
   constructor(props) {
@@ -25,7 +32,7 @@ class WishList extends Component {
   }
 
   componentDidMount() {
-    // this.updateData();
+    this.props.wishlistGetIds();
   }
 
   render() {
@@ -84,4 +91,4 @@ class WishList extends Component {
   }
 }
 
-export default connect(mapStateToProps)(WishList);
+export default connect(mapStateToProps, mapDispatchToProps)(WishList);
