@@ -2,8 +2,11 @@ const mongoose = require('mongoose'),
   Schema = mongoose.Schema,
  UserSchema = new mongoose.Schema({
   name: String,
+  bio: String,
   email: String,
   password: String,
+  position: String,
+  phone: String,
   wishlist: [],
   roles: [], // 'admin', 'associate'
   departments: [{type: Schema.Types.ObjectId, ref: 'Department'}]

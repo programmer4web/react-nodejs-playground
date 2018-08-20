@@ -50,5 +50,18 @@
 
 .form-content{
 	width: 100%;
-  clear: both;
+	clear: both;
+	text-align:left;
+}
+
+.profile-page-edit-form{
+	display: inline-block;
+	input{
+		padding:12px;
+	}
+}
+
+
+.hidden{
+	display: none;
 }

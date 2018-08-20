@@ -54,7 +54,7 @@ class Home extends React.Component {
           </TabPanel>
           <TabPanel>
             <h2>Profile</h2>
-            <Profile />
+            <Profile serverUrl={serverUrl} user={user}/>
           </TabPanel>
           <TabPanel>
 

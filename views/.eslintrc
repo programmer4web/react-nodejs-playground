@@ -9,6 +9,7 @@
     "no-console": 0
   },
   "globals": {
+    "require": true,
     "window": true,
     "document": true,
     "module": true,
