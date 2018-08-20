@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Action from './Action.js';
 
 export default class Product extends Component {
@@ -40,4 +41,11 @@ export default class Product extends Component {
       </div>
     );
   }
+}
+
+Product.propTypes = {
+  mode: PropTypes.string,
+  actionText: PropTypes.string,
+  actionPlaceholder: PropTypes.string,
+  actionJob: PropTypes.string
 }

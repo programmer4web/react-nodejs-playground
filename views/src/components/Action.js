@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {wishlistAddProduct, wishlistRemoveProduct} from '../actions/index';
 
@@ -17,7 +18,7 @@ class Action extends Component {
 
   render() {
     return <div className="action" onClick={this.handleClickAction}>{
-      this.props.job == "remove" ?
+      this.props.placeholder ?
       <span className="action-placeholder">{this.props.placeholder}</span> : this.props.text
     }</div>
   }
@@ -38,6 +39,9 @@ class Action extends Component {
 
 export default connect(null, mapDispatchToProps)(Action);
 
-// Action.propTypes = {
-//   text: PropTypes.string
-// }
+Action.propTypes = {
+  text: PropTypes.string,
+  placeholder: PropTypes.string,
+  wishlistAddProduct: PropTypes.func,
+  wishlistRemoveProduct: PropTypes.func
+}

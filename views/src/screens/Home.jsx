@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import FeaturedProducts from '../components/FeaturedProducts.js';
 import Profile from '../components/Profile.jsx';
 import WishList from '../components/WishList.js';
-import {MyTabs, MyTabsHeader} from '../components/Tabs.js';
+import {ContentTabs, ContentTabsHeader} from '../components/ContentTabs.js';
 
 const formatName = user => `${user.firstName} ${user.lastName}`,
   user = {
@@ -20,7 +20,7 @@ class Home extends React.Component {
 
     this.wishlistUpdateData = this.wishlistUpdateData.bind(this);
 
-    this.mytabsSelectedChanged = this.mytabsSelectedChanged.bind(this);
+    this.contentTabsSelectedChanged = this.contentTabsSelectedChanged.bind(this);
   }
 
   wishlistUpdateData(ids) {
@@ -28,7 +28,7 @@ class Home extends React.Component {
   }
 
   // my tabs selected changed managed from outside of tabs
-  mytabsSelectedChanged(idx) {
+  contentTabsSelectedChanged(idx) {
     this.refs.myTabs.selectedChanged(idx);
   }
 
@@ -53,7 +53,7 @@ class Home extends React.Component {
               </div>
               <div className="box">
                 <div className="module">
-                  <WishList ref="wishlist" serverUrl={serverUrl} userId={user._id}/>
+                  <WishList ref="wishlist" />
                 </div>
               </div>
             </div>
@@ -64,16 +64,16 @@ class Home extends React.Component {
           </TabPanel>
           <TabPanel>
 
-            <MyTabs ref="myTabs">
-              <MyTabsHeader selectedChanged={this.mytabsSelectedChanged} >
+            <ContentTabs ref="myTabs">
+              <ContentTabsHeader selectedChanged={this.contentTabsSelectedChanged} >
                 <div dataId="tab1">Tab 1</div>
                 <div dataId="tab2">Tab 2</div>
                 <div dataId="tab3">Tab 3</div>
-              </MyTabsHeader>
+              </ContentTabsHeader>
               <div>Content of tab 1</div>
               <div>Content of tab 2</div>
               <div>Content of tab 3</div>
-            </MyTabs>
+            </ContentTabs>
 
           </TabPanel>
         </Tabs>

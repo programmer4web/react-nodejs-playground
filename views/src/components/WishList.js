@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import Product from './Product.js';
@@ -48,3 +49,10 @@ class WishList extends Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WishList);
+
+WishList.propTypes = {
+  wishlistProducts: PropTypes.array,
+  wishlistGetIds: PropTypes.func,
+  wishlistAddProduct: PropTypes.func,
+  wishlistRemoveProduct: PropTypes.func,
+}

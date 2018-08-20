@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import Product from './Product.js';
@@ -112,4 +113,8 @@ export default class FeaturedProducts extends Component {
       </div>
     );
   }
+}
+
+FeaturedProducts.propTypes = {
+  serverUrl: PropTypes.string
 }
