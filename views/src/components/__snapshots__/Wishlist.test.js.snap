@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Initiates an Wishlist instance 1`] = `
+<div
+  className="wishlist-products"
+>
+  <h3>
+    WishList
+  </h3>
+  <ul
+    className="wishlist-products-list"
+  />
+</div>
+`;
