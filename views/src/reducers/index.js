@@ -1,12 +1,16 @@
 import {
   WISHLIST_GET_IDS,
   WISHLIST_ADD_PRODUCT,
+  WISHLIST_REMOVE_PRODUCT,
   WISHLIST_SET_IDS,
-  WISHLIST_GET_PRODUCTS} from '../actions/action-types.js';
+  WISHLIST_GET_PRODUCTS,
+  WISHLIST_SET_PRODUCTS
+  } from '../actions/action-types.js';
 
 import {
   wishlistGetIdsApiCall,
   wishlistAddProductApiCall,
+  wishlistRemoveProductApiCall,
   wishlistGetProductsApiCall
 } from '../apiCall/WishListApiCall.js';
 
@@ -27,13 +31,19 @@ const rootReducer = (state = initialState, action) => {
     case WISHLIST_GET_IDS:
       wishlistGetIdsApiCall(userUrl).then(wishlist => {
         action.asyncDispatch({type: WISHLIST_SET_IDS, payload: wishlist});
-      }).catch(err => console.log(err));
+      }).catch(err => console.warn(err));
       return state;
 
     case WISHLIST_ADD_PRODUCT:
       wishlistAddProductApiCall(action.payload, userUrl).then(wishlist => {
-        action.asyncDispatch({ type: WISHLIST_SET_IDS, payload: wishlist});
-      }).catch((err)=> console.warn(err));;
+        action.asyncDispatch({type: WISHLIST_SET_IDS, payload: wishlist});
+      }).catch(err => console.warn(err));
+      return state;
+
+    case WISHLIST_REMOVE_PRODUCT:
+      wishlistRemoveProductApiCall(action.payload, userUrl).then(wishlist => {
+        action.asyncDispatch({type: WISHLIST_SET_IDS, payload: wishlist});
+      }).catch(err => console.warn(err));
       return state;
 
     case WISHLIST_SET_IDS:
@@ -44,11 +54,11 @@ const rootReducer = (state = initialState, action) => {
 
     case WISHLIST_GET_PRODUCTS:
       wishlistGetProductsApiCall(action.payload, productsUrl).then(wishlistProducts => {
-        action.asyncDispatch({type: "WISHLIST_SET_PRODUCTS", payload: wishlistProducts});
-      }).catch((err)=> console.warn(err));
+        action.asyncDispatch({type: WISHLIST_SET_PRODUCTS, payload: wishlistProducts});
+      }).catch(err => console.warn(err));
       return state;
 
-    case "WISHLIST_SET_PRODUCTS":
+    case WISHLIST_SET_PRODUCTS:
       return Object.assign({}, state, {
         user: Object.assign({}, state.user, {wishlistProducts: action.payload})
       });

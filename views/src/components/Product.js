@@ -34,8 +34,7 @@ export default class Product extends Component {
           </div>
           <div className="product-actions">
             <Action text={this.props.actionText} placeholder={this.props.actionPlaceholder}
-              job={this.props.actionJob} id={product._id}
-              removeProduct={this.props.removeProduct} />
+              job={this.props.actionJob} id={product._id} />
           </div>
         </div>
       </div>

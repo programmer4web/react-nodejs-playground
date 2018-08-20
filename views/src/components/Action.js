@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import {wishlistAddProduct} from '../actions/index';
+import {wishlistAddProduct, wishlistRemoveProduct} from '../actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
-    wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId))
+    wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId)),
+    wishlistRemoveProduct: productId => dispatch(wishlistRemoveProduct(productId))
   };
 }
 
@@ -30,7 +31,7 @@ class Action extends Component {
     if (job == 'add') {
       this.props.wishlistAddProduct(productId);
     } else if (job == 'remove') {
-      this.props.removeProduct(productId);
+      this.props.wishlistRemoveProduct(productId);
     }
   }
 }
