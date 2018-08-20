@@ -1,18 +1,18 @@
-.my-tabs {
+.content-tabs {
   color: #24292e; // medium-black
 
-  .my-tabs-header {
+  .content-tabs-header {
     border-bottom: 1px solid #89a0c1;
   }
 }
 
-.my-tabs-name {
+.content-tabs-name {
   display: inline-block;
   color: #24292e; // medium-black
   user-select: none;
   cursor: pointer;
 
-  & + .my-tabs-name {
+  & + .content-tabs-name {
     margin-left: 10px;
   }
 
@@ -35,6 +35,6 @@
   }
 }
 
-.my-tabs-tab {
+.content-tabs-tab {
   display: none;
 }

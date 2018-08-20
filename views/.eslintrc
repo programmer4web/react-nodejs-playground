@@ -1,9 +1,20 @@
 {
-"parser": "babel-eslint",
-"plugins": [
-  "react"
-],
-"rules": {
-  "react/prop-types": [2]
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "react/prop-types": [2],
+    "no-console": 0
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "module": true,
+    "console": true
+  },
+  "env": {
+    "es6": true
   }
 }

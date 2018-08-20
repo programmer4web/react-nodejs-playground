@@ -12,7 +12,7 @@ export default class Product extends Component {
   render() {
     const product = this.state.data,
       images = product.images,
-      image = product.images && product.images[0];
+      image = images && images[0];
     return (
       <div className={`product ${this.props.mode}`}>
         <div className="product-header">

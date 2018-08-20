@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
-export default class MyTabs extends Component {
+export default class ContentTabs extends Component {
   constructor(props) {
     super(props);
 
@@ -21,11 +22,11 @@ export default class MyTabs extends Component {
      tabs = children.slice(1);
 
     return (
-      <div className="my-tabs">
+      <div className="content-tabs">
         {header && header}
 
         { tabs && tabs.map((tab, idx) => {
-          let className = "my-tabs-tab";
+          let className = "content-tabs-tab";
           if(this.state.selected == idx) {
             className+= 'selected';
           }
@@ -40,16 +41,16 @@ export default class MyTabs extends Component {
   }
 }
 
-class MyTabsHeader extends Component {
+class ContentTabsHeader extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div className="my-tabs-header">
+      <div className="content-tabs-header">
         {this.props.children.map((tabHeaderEl, idx) => {
-          return (<div className="my-tabs-name" key={`my-tabs-name-${tabHeaderEl.props.dataId}`}
+          return (<div className="content-tabs-name" key={`content-tabs-name-${tabHeaderEl.props.dataId}`}
             onClick={(e) => this.props.selectedChanged(idx, e) }>
             {tabHeaderEl.props.children}
             </div>
@@ -60,4 +61,14 @@ class MyTabsHeader extends Component {
   }
 }
 
-export {MyTabs, MyTabsHeader}
+export {ContentTabs, ContentTabsHeader}
+
+ContentTabs.propTypes = {
+  children: PropTypes.array,
+  selectedChanged: PropTypes.func
+}
+
+ContentTabsHeader.propTypes = {
+  children: PropTypes.array,
+  selectedChanged: PropTypes.func
+}

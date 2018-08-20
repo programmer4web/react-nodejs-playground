@@ -29,7 +29,7 @@ export default class FeaturedProducts extends Component {
     })
   }
 
-  handleMode(e) {
+  handleMode() {
     this.setState({ productsMode: (this.state.productsMode === '') ? 'simple' : '' });
   }
 
@@ -42,7 +42,7 @@ export default class FeaturedProducts extends Component {
 
   }
 
-  filterUpdated(task, value) {
+  filterUpdated() {
     const filters = this.filters,
       searchText = filters.search;
     let visibleProducts = this.state.products;

@@ -18,18 +18,12 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.wishlistUpdateData = this.wishlistUpdateData.bind(this);
-
     this.contentTabsSelectedChanged = this.contentTabsSelectedChanged.bind(this);
-  }
-
-  wishlistUpdateData(ids) {
-    this.refs.wishlist.updateData(ids);
   }
 
   // my tabs selected changed managed from outside of tabs
   contentTabsSelectedChanged(idx) {
-    this.refs.myTabs.selectedChanged(idx);
+    this.contentTabs.selectedChanged(idx);
   }
 
   render() {
@@ -48,12 +42,12 @@ class Home extends React.Component {
             <div className="row">
               <div className="box">
                 <div className="module">
-                  <FeaturedProducts serverUrl={serverUrl} callback={this.wishlistUpdateData}/>
+                  <FeaturedProducts serverUrl={serverUrl} />
                 </div>
               </div>
               <div className="box">
                 <div className="module">
-                  <WishList ref="wishlist" />
+                  <WishList />
                 </div>
               </div>
             </div>
@@ -64,7 +58,7 @@ class Home extends React.Component {
           </TabPanel>
           <TabPanel>
 
-            <ContentTabs ref="myTabs">
+            <ContentTabs ref={ref => (this.contentTabs = ref)}>
               <ContentTabsHeader selectedChanged={this.contentTabsSelectedChanged} >
                 <div dataId="tab1">Tab 1</div>
                 <div dataId="tab2">Tab 2</div>
