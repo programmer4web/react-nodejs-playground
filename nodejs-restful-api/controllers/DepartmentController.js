@@ -11,8 +11,7 @@ router.post('/', (req, res) => {
     Department.create({
             name : req.body.name,
             abbreviation: req.body.abbreviation,
-            description: req.body.description,
-            inactiveProducts: req.body.inactiveProducts
+            description: req.body.description
         },
         (err, department) => {
             if (err) return res.status(500).send("There was a problem adding the information to the database.");

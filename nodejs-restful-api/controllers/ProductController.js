@@ -23,6 +23,15 @@ router.get('/', (req, res) => {
   });
 });
 
+// GETS A SINGLE PRODUCT FROM THE DATABASE
+router.get('/:id', (req, res) => {
+  Product.findById(req.params.id, (err, product) => {
+      if (err) return res.status(500).send("There was a problem finding the product.");
+      if (!product) return res.status(404).send("No product found.");
+      res.status(200).send(product);
+  });
+});
+
 // DELETES A PRODUCT FROM THE DATABASE
 router.delete('/:id', (req, res) => {
   Product.findByIdAndRemove(req.params.id, (err, product) => {
