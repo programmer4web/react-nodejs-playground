@@ -17,9 +17,26 @@ router.get('/', (req, res) => {
         condition = { _id: { $in: ids } };
     };
 
+    let departments = req.query.departments;
+
+    if(departments && departments.length > 0){
+      condition={ $and: [ condition, {departments: {$in: departments}}]};
+    }
+    
+    
+
   Product.find(condition, (err, products) => {
     if (err) return res.status(500).send("There was a problem finding the products.");
     res.status(200).send(products);
+  });
+});
+
+// GETS A SINGLE PRODUCT FROM THE DATABASE
+router.get('/:id', (req, res) => {
+  Product.findById(req.params.id, (err, product) => {
+      if (err) return res.status(500).send("There was a problem finding the product.");
+      if (!product) return res.status(404).send("No product found.");
+      res.status(200).send(product);
   });
 });
 
