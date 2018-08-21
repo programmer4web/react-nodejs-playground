@@ -17,6 +17,14 @@ router.get('/', (req, res) => {
         condition = { _id: { $in: ids } };
     };
 
+    let departments = req.query.departments;
+
+    if(departments && departments.length > 0){
+      condition={ $and: [ condition, {departments: {$in: departments}}]};
+    }
+    
+    
+
   Product.find(condition, (err, products) => {
     if (err) return res.status(500).send("There was a problem finding the products.");
     res.status(200).send(products);

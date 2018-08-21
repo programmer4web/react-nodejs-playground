@@ -25,7 +25,7 @@
 }
 
 .featured-products-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0 16px 0 0;
   max-height: 650px;
   overflow-y: auto;
@@ -34,4 +34,9 @@
 .featured-products-empty {
   padding: 64px;
   text-align: center;
+}
+
+.featured-product-line {
+  margin-bottom: 10px;
+  list-style: none;
 }
