@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
   wishlistGetIdsApiCall,
   wishlistAddProductApiCall,
-  wishlistRemoveProductApiCall
+  wishlistRemoveProductApiCall,
+  wishlistGetProductsApiCall
 } from './WishListApiCall.js';
 
 jest.mock('axios');
@@ -37,7 +38,7 @@ test('wishlistAddProductApiCall adds product in wishlist', done => {
   })
 });
 
-test('wishlistRemoveProductApiCall', done => {
+test('wishlistRemoveProductApiCall removes product id', done => {
   const payload = {
     data: {
       wishlist: ['first product id', 'another id']
@@ -53,5 +54,25 @@ test('wishlistRemoveProductApiCall', done => {
   wishlistRemoveProductApiCall('another id', url).then(response => {
     expect(response).toEqual(expected.data.wishlist);
     done();
-  })
+  });
+});
+
+test('wishlistGetProductsApiCall handles empty wishlist', done => {
+  const expected = {data: []};
+  axios.get.mockResolvedValue(expected);
+  wishlistGetProductsApiCall([], url).then(response => {
+    expect(response).toEqual(expected.data);
+    done();
+  });
+})
+
+test('wishlistGetProductsApiCall', done => {
+  const expected = {
+    data: [{ "name": "product 1"}, {"name": "product 2"}]
+  };
+  axios.get.mockResolvedValue(expected);
+  wishlistGetProductsApiCall(['another id'], url).then(response => {
+    expect(response).toEqual(expected.data);
+    done();
+  });
 });
