@@ -1,9 +1,9 @@
-import Axios from 'axios';
+import axios from 'axios';
 import qs from 'qs';
 
 export const wishlistGetIdsApiCall = url => {
   return new Promise((resolve, reject) => {
-    Axios.get(url).then(response => {
+    axios.get(url).then(response => {
       resolve(response.data.wishlist);
     }).catch(err => {
       console.warn(err);
@@ -19,7 +19,7 @@ export const wishlistAddProductApiCall = (productId, url) => {
 
       if (idx === -1) {
         wishlist.push(productId);
-        Axios.put(url, { wishlist: wishlist }).then(res => {
+        axios.put(url, { wishlist: wishlist }).then(res => {
           resolve(res.data.wishlist);
         });
       } else {
@@ -38,7 +38,7 @@ export const wishlistRemoveProductApiCall = (productId, url) => {
       const idx = wishlist.indexOf(productId);
       wishlist.splice(idx, 1);
 
-      Axios.put(url, { wishlist: wishlist }).then(res => {
+      axios.put(url, { wishlist: wishlist }).then(res => {
         resolve(res.data.wishlist);
       }).catch(err => {
         console.warn(err);
@@ -53,7 +53,7 @@ export const wishlistGetProductsApiCall = (userWishlist, url) => {
     if(!Array.isArray(userWishlist) || userWishlist.length === 0) {
       resolve([]);
     }
-    Axios.get(url, {
+    axios.get(url, {
       'params': { 'ids': userWishlist },
       'paramsSerializer': params => qs.stringify(params, { arrayFormat: 'repeat' })
     }).then(result => {

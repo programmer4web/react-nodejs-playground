@@ -13,7 +13,13 @@
     "window": true,
     "document": true,
     "module": true,
-    "console": true
+    "console": true,
+    "test": true,
+    "expect": true,
+    "global": true,
+    "shallow": true,
+    "mount": true,
+    "jest": true
   },
   "env": {
     "es6": true

@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`product toJson matches snapshot 1`] = `
+<div
+  className="product undefined"
+>
+  <div
+    className="product-header"
+  >
+    <div
+      className="product-title"
+      title="White T-shirt Elevate"
+    >
+      White T-shirt Elevate
+    </div>
+  </div>
+  <div
+    className="product-properties"
+  >
+    <div
+      className="product-price"
+    >
+      Price:
+      17 usd
+    </div>
+    <div
+      className="product-size"
+    >
+      Size: 
+      Small
+    </div>
+    0
+  </div>
+  <div
+    className="product-details"
+  >
+    <div
+      className="product-image"
+    >
+      <img
+        className="product-img"
+        height={150}
+        src="./demo_imgs/shirt.jpg"
+        width={150}
+      />
+    </div>
+    <div
+      className="product-actions"
+    >
+      <div
+        className="action"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

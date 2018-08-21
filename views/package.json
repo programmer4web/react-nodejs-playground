@@ -8,7 +8,20 @@
     "build": "./node_modules/.bin/webpack --config webpack.config.dev.js",
     "build:production": "./node_modules/.bin/webpack --config webpack.config.production.js",
     "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.production.js",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "setupFiles": [
+      "./test/jestsetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "identity-obj-proxy"
+    }
   },
   "homepage": "https://github.com/temilaj/react-webpack-starter",
   "repository": "https://github.com/temilaj/react-webpack-starter.git",
@@ -43,11 +56,16 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "css-loader": "^1.0.0",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^5.4.0",
     "eslint-loader": "^2.1.0",
     "eslint-plugin-react": "^7.11.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^23.5.0",
+    "nock": "^9.6.1",
     "node-sass": "^4.7.2",
     "prop-types": "^15.6.2",
     "react-hot-loader": "^4.3.4",
