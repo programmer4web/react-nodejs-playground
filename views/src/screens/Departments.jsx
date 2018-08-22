@@ -23,7 +23,8 @@ export default class Departments extends Component {
       this.setState({ departments: result.data });
     });
     axios.get(`${serverUrl}products`).then(result => {
-      this.setState({products: result.data});
+      const resultFiltered = result.data.filter(product =>  product.departments.length == 0 );
+      this.setState({products: resultFiltered});
     })
   }
 
@@ -41,8 +42,8 @@ export default class Departments extends Component {
     });
   }
 
-  handleProductChange(e){
-    
+  handleProductChange(product){
+    console.log(product);
   }
 
   handleRemoveOnClick(product) {
@@ -104,7 +105,7 @@ export default class Departments extends Component {
               {this.state.departmentProducts && this.state.departmentProducts.map(((product) => (
                 <li className="departement-product-line" key={`product-line-${product._id}`}>
                   <div className="departement-products"><span className="department-product-name">{product.name}</span>
-                    <div className="action department-product-add" data-id={product._id} onClick={() => this.handleAddOnClick(product)}>
+                    <div className="action department-product-add" data-id={product._id} onClick={() => this.handlerRemoveOnClick(product)}>
                       Remove from department
                     </div>
                   </div>
