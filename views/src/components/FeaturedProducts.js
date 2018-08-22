@@ -1,10 +1,25 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
+import {wishlistAddProduct} from '../actions/index';
 import Product from './Product.js';
 
-export default class FeaturedProducts extends Component {
+const mapStateToProps = state => {
+    return {
+      serverUrl: state.serverUrl
+    }
+  },
+  mapDispatchToProps = dispatch => {
+    return {
+      wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId))
+    }
+  }
+
+
+
+class FeaturedProducts extends Component {
   constructor(props) {
     super(props);
 
@@ -84,7 +99,6 @@ export default class FeaturedProducts extends Component {
   }
 
   render() {
-    // console.log('Render here.');
     const visibleProducts = this.state.visibleProducts;
     return (
       <div className="featured-products">
@@ -104,7 +118,7 @@ export default class FeaturedProducts extends Component {
           {(visibleProducts && visibleProducts.length > 0) ?
             this.state.visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
               <Product data={data} mode={this.state.productsMode}
-                actionText={"Add to wishlist"} actionJob={"add"} />
+                actionText={"Add to wishlist"} callback={this.props.wishlistAddProduct} />
               </li>)
            :
             <div className="featured-products-empty">List is empty.</div>
@@ -115,6 +129,9 @@ export default class FeaturedProducts extends Component {
   }
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(FeaturedProducts);
+
 FeaturedProducts.propTypes = {
-  serverUrl: PropTypes.string
+  serverUrl: PropTypes.string,
+  wishlistAddProduct: PropTypes.func
 }

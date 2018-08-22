@@ -42,7 +42,7 @@ class Home extends React.Component {
             <div className="row">
               <div className="box">
                 <div className="module">
-                  <FeaturedProducts serverUrl={serverUrl} />
+                  <FeaturedProducts />
                 </div>
               </div>
               <div className="box">

@@ -1,14 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {wishlistAddProduct, wishlistRemoveProduct} from '../actions/index';
-
-const mapDispatchToProps = dispatch => {
-  return {
-    wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId)),
-    wishlistRemoveProduct: productId => dispatch(wishlistRemoveProduct(productId))
-  };
-}
 
 class Action extends Component {
   constructor(props) {
@@ -25,23 +16,15 @@ class Action extends Component {
 
   handleClickAction(e) {
     e.preventDefault();
-    const props = this.props,
-      productId = props.id,
-      job = props.job;
-
-    if (job == 'add') {
-      this.props.wishlistAddProduct(productId);
-    } else if (job == 'remove') {
-      this.props.wishlistRemoveProduct(productId);
-    }
+    this.props.callback(this.props.id);
   }
 }
 
-export default connect(null, mapDispatchToProps)(Action);
+export default Action;
 
 Action.propTypes = {
+  id: PropTypes.string,
   text: PropTypes.string,
   placeholder: PropTypes.string,
-  wishlistAddProduct: PropTypes.func,
-  wishlistRemoveProduct: PropTypes.func
+  callback: PropTypes.func
 }

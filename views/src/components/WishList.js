@@ -13,7 +13,7 @@ const mapStateToProps = state => {
   mapDispatchToProps = dispatch => {
     return {
       wishlistGetIds: () => dispatch(wishlistGetIds()),
-      removeProduct: productId => dispatch(wishlistRemoveProduct(productId))
+      wishlistRemoveProduct: productId => dispatch(wishlistRemoveProduct(productId))
     };
   }
 ;
@@ -39,7 +39,7 @@ class WishList extends Component {
         <ul className="wishlist-products-list">
           {this.props.wishlistProducts && this.props.wishlistProducts.map(
             (data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
-              <Product data={data} actionText={"Remove from wishlist"} actionJob="remove"
+              <Product data={data} actionText={"Remove from wishlist"} callback={this.props.wishlistRemoveProduct}
                 actionPlaceholder="- wishlist" mode="simple" /></li>
           )}
         </ul>
