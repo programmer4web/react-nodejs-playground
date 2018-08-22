@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Action from './Action.js';
+
+import CustomButton from './CustomButton.js';
 
 export default class Product extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class Product extends Component {
             <img className="product-img" src={image && image.src ? image.src : 'http://placehold.it/150x150/637d9f/ffffff'} width={150} height={150} />
           </div>
           <div className="product-actions">
-            <Action text={this.props.actionText} placeholder={this.props.actionPlaceholder}
+            <CustomButton text={this.props.actionText} placeholder={this.props.actionPlaceholder}
               callback={this.props.callback} id={product._id} />
           </div>
         </div>
