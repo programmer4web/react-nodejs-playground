@@ -3,20 +3,25 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {wishlistAddProduct} from '../actions/WishlistActions.js';
-import {featuredProductsGetSource} from '../actions/FeaturedProductsActions.js';
+import {
+  featuredProductsGetSource,
+  featuredProductsHandleMode
+} from '../actions/FeaturedProductsActions.js';
 import Product from './Product.js';
 
 const mapStateToProps = state => {
     return {
       serverUrl: state.serverUrl,
-      source: state.featuredProducts,
-      products: state.featuredProductsVisible
+      source: state.featuredProducts.source,
+      products: state.featuredProducts.visible,
+      mode: state.featuredProducts.mode
     }
   },
   mapDispatchToProps = dispatch => {
     return {
       wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId)),
-      featuredProductsGetSource: () => dispatch(featuredProductsGetSource())
+      featuredProductsGetSource: () => dispatch(featuredProductsGetSource()),
+      featuredProductsHandleMode: mode => dispatch(featuredProductsHandleMode(mode))
     }
   }
 
@@ -39,11 +44,11 @@ class FeaturedProducts extends Component {
 
   componentDidMount() {
     this.props.featuredProductsGetSource();
-    console.log(this.props.source);
   }
 
   handleMode() {
-    this.setState({ productsMode: (this.state.productsMode === '') ? 'simple' : '' });
+    const mode = this.props.mode == ''? 'simple': '';
+    this.props.featuredProductsHandleMode(mode);
   }
 
   applyFilter(task, e) {
@@ -103,7 +108,7 @@ class FeaturedProducts extends Component {
         <h3>Featured Products</h3>
         <div className="featured-products-actions">
           <div className="featured-product-mode action small" onClick={this.handleMode} title="Change display mode of products">
-            {(this.state.productsMode == '') ? 'Simple' : 'Detailed'}
+            {(this.props.mode == '') ? 'Simple' : 'Detailed'}
           </div>
           <select className="featured-products-sort" onChange={(e)=> this.applyFilter('sort', e)}>
             <option value="">No sorting</option>
@@ -115,7 +120,7 @@ class FeaturedProducts extends Component {
         <ul className="featured-products-list">
           {(visibleProducts && visibleProducts.length > 0) ?
             visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
-              <Product data={data} mode={this.state.productsMode}
+              <Product data={data} mode={this.props.mode}
                 actionText={"Add to wishlist"} callback={this.props.wishlistAddProduct} />
               </li>)
            :
@@ -133,6 +138,8 @@ FeaturedProducts.propTypes = {
   serverUrl: PropTypes.string,
   source: PropTypes.array,
   products: PropTypes.array,
+  mode: PropTypes.string,
   wishlistAddProduct: PropTypes.func,
   featuredProductsGetSource: PropTypes.func,
+  featuredProductsHandleMode: PropTypes.func
 }

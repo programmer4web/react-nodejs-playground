@@ -8,7 +8,8 @@ import {
 
   FEATUREDPRODUCTS_GET_SOURCE,
   FEATUREDPRODUCTS_SET_SOURCE,
-  FEATUREDPRODUCTS_SET_VISIBLE
+  FEATUREDPRODUCTS_SET_VISIBLE,
+  FEATUREDPRODUCTS_HANDLE_MODE
   } from '../actions/action-types.js';
 
 import {
@@ -28,6 +29,11 @@ const initialState = {
     _id: '5b646febeebb915ff8b221be',
     wishlist: [],
     wishlistProducts: []
+  },
+  featuredProducts: {
+    source: [],
+    visible: [],
+    mode: ''
   }
 };
 
@@ -80,14 +86,18 @@ const rootReducer = (state = initialState, action) => {
     case FEATUREDPRODUCTS_SET_SOURCE:
       action.asyncDispatch({type: FEATUREDPRODUCTS_SET_VISIBLE, payload: action.payload});
       return Object.assign({}, state, {
-        featuredProducts: action.payload
+        featuredProducts: Object.assign({}, state.featuredProducts, {source: action.payload})
       });
 
     case FEATUREDPRODUCTS_SET_VISIBLE:
       return Object.assign({}, state, {
-        featuredProductsVisible: action.payload
+        featuredProducts: Object.assign({}, state.featuredProducts, {visible: action.payload})
       });
 
+    case FEATUREDPRODUCTS_HANDLE_MODE:
+      return Object.assign({}, state, {
+        featuredProducts: Object.assign({}, state.featuredProducts, {mode: action.payload})
+      });
     default:
       return state;
   }

@@ -1,7 +1,8 @@
 import {
   FEATUREDPRODUCTS_GET_SOURCE,
   FEATUREDPRODUCTS_SET_SOURCE,
-  FEATUREDPRODUCTS_SET_VISIBLE
+  FEATUREDPRODUCTS_SET_VISIBLE,
+  FEATUREDPRODUCTS_HANDLE_MODE
 } from './action-types.js';
 
 export const featuredProductsGetSource = () => ({
@@ -17,4 +18,9 @@ export const featuredProductsSetSource = () => ({
 export const featuredProductsSetVisible = products => ({
   type: FEATUREDPRODUCTS_SET_VISIBLE,
   payload: products
+});
+
+export const featuredProductsHandleMode = mode => ({
+  type: FEATUREDPRODUCTS_HANDLE_MODE,
+  payload: mode
 });
