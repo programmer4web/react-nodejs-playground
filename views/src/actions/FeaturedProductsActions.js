@@ -2,7 +2,9 @@ import {
   FEATUREDPRODUCTS_GET_SOURCE,
   FEATUREDPRODUCTS_SET_SOURCE,
   FEATUREDPRODUCTS_SET_VISIBLE,
-  FEATUREDPRODUCTS_HANDLE_MODE
+  FEATUREDPRODUCTS_HANDLE_MODE,
+  FEATUREDPRODUCTS_APPLY_FILTER,
+  FEATUREDPRODUCTS_SET_FILTERS
 } from './action-types.js';
 
 export const featuredProductsGetSource = () => ({
@@ -23,4 +25,14 @@ export const featuredProductsSetVisible = products => ({
 export const featuredProductsHandleMode = mode => ({
   type: FEATUREDPRODUCTS_HANDLE_MODE,
   payload: mode
+});
+
+export const featuredProductsApplyFilter = (task, value, filters, source) => ({
+  type: FEATUREDPRODUCTS_APPLY_FILTER,
+  payload: {task, value, filters, source}
+});
+
+export const featuredProductsSetFilters = (task, value) => ({
+  type: FEATUREDPRODUCTS_SET_FILTERS,
+  payload: {task, value}
 });

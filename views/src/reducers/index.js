@@ -9,7 +9,9 @@ import {
   FEATUREDPRODUCTS_GET_SOURCE,
   FEATUREDPRODUCTS_SET_SOURCE,
   FEATUREDPRODUCTS_SET_VISIBLE,
-  FEATUREDPRODUCTS_HANDLE_MODE
+  FEATUREDPRODUCTS_HANDLE_MODE,
+  FEATUREDPRODUCTS_APPLY_FILTER,
+  FEATUREDPRODUCTS_SET_FILTERS
   } from '../actions/action-types.js';
 
 import {
@@ -23,6 +25,8 @@ import {
   featuredProductsGetSourceApiCall
 } from '../apiCall/FeaturedProductsApiCall.js';
 
+import {featuredProductsApplyFilterReducer} from './FeaturedProductsReducers.js';
+
 const initialState = {
   serverUrl: 'http://127.0.0.1:7070/',
   user: {
@@ -33,7 +37,11 @@ const initialState = {
   featuredProducts: {
     source: [],
     visible: [],
-    mode: ''
+    mode: '',
+    filters: {
+      search: '',
+      sort: ''
+    }
   }
 };
 
@@ -98,6 +106,21 @@ const rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         featuredProducts: Object.assign({}, state.featuredProducts, {mode: action.payload})
       });
+
+    case FEATUREDPRODUCTS_APPLY_FILTER:
+      action.asyncDispatch({type: FEATUREDPRODUCTS_SET_FILTERS, payload: action.payload});
+      featuredProductsApplyFilterReducer(action.payload).then(visible => {
+        action.asyncDispatch({type: FEATUREDPRODUCTS_SET_VISIBLE, payload: visible});
+      });
+      return state;
+
+    case FEATUREDPRODUCTS_SET_FILTERS:
+    return Object.assign({}, state, {
+      featuredProducts: Object.assign({}, state.featuredProducts, {
+        filters: Object.assign({}, state.featuredProducts.filters, {[action.payload.task]: action.payload.value})
+      })
+    });
+
     default:
       return state;
   }
