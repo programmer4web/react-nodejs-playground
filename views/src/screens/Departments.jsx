@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Product from '../components/Product';
+
 
 const serverUrl = 'http://127.0.0.1:7070/';
 
@@ -14,6 +14,7 @@ export default class Departments extends Component {
     };
 
     this.handleDepartmentChange = this.handleDepartmentChange.bind(this);
+    this.handleRemoveOnClick = this.handleRemoveOnClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,10 +32,26 @@ export default class Departments extends Component {
     }
     axios.get(`${serverUrl}products?departments=${departmentId}`).then(result => {
       console.log(result.data);
+      this.setState({departmentId:departmentId});
       this.setState({ products: result.data });
     });
   }
 
+  handleRemoveOnClick(product){
+    const departments = product.departments;
+    console.log(departments);
+    const idx = departments.indexOf(this.state.departmentId);
+    departments.splice(idx,1);
+
+    axios.put(`${serverUrl}products/${product._id}`,{departments}).then( result => {
+      console.log(result.data);
+      const idx2 = this.state.products.indexOf(product);
+      const temp = this.state.products;
+      temp.splice(idx2,1);
+      this.setState({products:temp});
+    })
+
+  }
   render() {
     return (
       <div className="row">
@@ -63,10 +80,16 @@ export default class Departments extends Component {
               })
               }
             </select>
-            {this.state.products && this.state.products.map(((data) => <li className="featured-product-line2" key={`product-line-${data._id}`}>
-              <Product data={data} mode={this.state.productsMode}
-                actionText={"Remove"} actionJob={"remove"} />
-            </li>))}
+            <ul className="department-products-list">
+            {this.state.products && this.state.products.map(((product) => (
+            <li className="departement-product-line" key={`product-line-${product._id}`}>
+              <div className="departement-products"><span className="department-product-name">{product.name}</span>
+                    <div className="action department-product-remove" data-id={product._id} onClick={()=>this.handleRemoveOnClick(product)}>
+                      Remove from department
+                    </div>
+              </div>
+            </li>)))}
+            </ul>
           </div>
         </div>
       </div>
