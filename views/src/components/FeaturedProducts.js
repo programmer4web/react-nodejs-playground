@@ -1,30 +1,30 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import {connect} from 'react-redux';
 
-import {wishlistAddProduct} from '../actions/index';
+import {wishlistAddProduct} from '../actions/WishlistActions.js';
+import {featuredProductsGetSource} from '../actions/FeaturedProductsActions.js';
 import Product from './Product.js';
 
 const mapStateToProps = state => {
     return {
-      serverUrl: state.serverUrl
+      serverUrl: state.serverUrl,
+      source: state.featuredProducts,
+      products: state.featuredProductsVisible
     }
   },
   mapDispatchToProps = dispatch => {
     return {
-      wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId))
+      wishlistAddProduct: productId => dispatch(wishlistAddProduct(productId)),
+      featuredProductsGetSource: () => dispatch(featuredProductsGetSource())
     }
   }
-
-
 
 class FeaturedProducts extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      products: [], // before any search
       visibleProducts: [],
       productsMode: ''
     };
@@ -38,10 +38,8 @@ class FeaturedProducts extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${this.props.serverUrl}products`).then(res => {
-      const products = res.data || [];
-      this.setState({ products, visibleProducts: products });
-    })
+    this.props.featuredProductsGetSource();
+    console.log(this.props.source);
   }
 
   handleMode() {
@@ -60,7 +58,7 @@ class FeaturedProducts extends Component {
   filterUpdated() {
     const filters = this.filters,
       searchText = filters.search;
-    let visibleProducts = this.state.products;
+    let visibleProducts = this.props.source;
 
     if(searchText !== '') {
       visibleProducts = visibleProducts.filter(
@@ -99,7 +97,7 @@ class FeaturedProducts extends Component {
   }
 
   render() {
-    const visibleProducts = this.state.visibleProducts;
+    const visibleProducts = this.props.products;
     return (
       <div className="featured-products">
         <h3>Featured Products</h3>
@@ -116,7 +114,7 @@ class FeaturedProducts extends Component {
         </div>
         <ul className="featured-products-list">
           {(visibleProducts && visibleProducts.length > 0) ?
-            this.state.visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
+            visibleProducts.map((data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
               <Product data={data} mode={this.state.productsMode}
                 actionText={"Add to wishlist"} callback={this.props.wishlistAddProduct} />
               </li>)
@@ -133,5 +131,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(FeaturedProducts);
 
 FeaturedProducts.propTypes = {
   serverUrl: PropTypes.string,
-  wishlistAddProduct: PropTypes.func
+  source: PropTypes.array,
+  products: PropTypes.array,
+  wishlistAddProduct: PropTypes.func,
+  featuredProductsGetSource: PropTypes.func,
 }

@@ -4,7 +4,11 @@ import {
   WISHLIST_REMOVE_PRODUCT,
   WISHLIST_SET_IDS,
   WISHLIST_GET_PRODUCTS,
-  WISHLIST_SET_PRODUCTS
+  WISHLIST_SET_PRODUCTS,
+
+  FEATUREDPRODUCTS_GET_SOURCE,
+  FEATUREDPRODUCTS_SET_SOURCE,
+  FEATUREDPRODUCTS_SET_VISIBLE
   } from '../actions/action-types.js';
 
 import {
@@ -13,6 +17,10 @@ import {
   wishlistRemoveProductApiCall,
   wishlistGetProductsApiCall
 } from '../apiCall/WishListApiCall.js';
+
+import {
+  featuredProductsGetSourceApiCall
+} from '../apiCall/FeaturedProductsApiCall.js';
 
 const initialState = {
   serverUrl: 'http://127.0.0.1:7070/',
@@ -61,6 +69,23 @@ const rootReducer = (state = initialState, action) => {
     case WISHLIST_SET_PRODUCTS:
       return Object.assign({}, state, {
         user: Object.assign({}, state.user, {wishlistProducts: action.payload})
+      });
+
+    case FEATUREDPRODUCTS_GET_SOURCE:
+      featuredProductsGetSourceApiCall(productsUrl).then(products => {
+        action.asyncDispatch({type: FEATUREDPRODUCTS_SET_SOURCE, payload: products});
+      });
+      return state;
+
+    case FEATUREDPRODUCTS_SET_SOURCE:
+      action.asyncDispatch({type: FEATUREDPRODUCTS_SET_VISIBLE, payload: action.payload});
+      return Object.assign({}, state, {
+        featuredProducts: action.payload
+      });
+
+    case FEATUREDPRODUCTS_SET_VISIBLE:
+      return Object.assign({}, state, {
+        featuredProductsVisible: action.payload
       });
 
     default:

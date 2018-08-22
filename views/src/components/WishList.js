@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import Product from './Product.js';
-import {wishlistGetIds, wishlistRemoveProduct} from '../actions/index';
+import {wishlistGetIds, wishlistRemoveProduct} from '../actions/WishlistActions.js';
 
 const mapStateToProps = state => {
     return {
