@@ -9,6 +9,7 @@ import {
   featuredProductsApplyFilter
 } from '../actions/FeaturedProductsActions.js';
 import Product from './Product.js';
+import CustomButton from './CustomButton';
 
 const mapStateToProps = state => {
     return {
@@ -55,9 +56,8 @@ class FeaturedProducts extends Component {
       <div className="featured-products">
         <h3>Featured Products</h3>
         <div className="featured-products-actions">
-          <div className="featured-product-mode action small" onClick={this.handleMode} title="Change display mode of products">
-            {(this.props.mode == '') ? 'Simple' : 'Detailed'}
-          </div>
+          <CustomButton className="featured-product-mode action small" callback={this.handleMode}
+            title="Change display mode of products" text={(this.props.mode == '') ? 'Simple' : 'Detailed'} />
           <select className="featured-products-sort" onChange={(e)=> this.applyFilter('sort', e)}>
             <option value="">No sorting</option>
             <option value="asc">Ascending</option>

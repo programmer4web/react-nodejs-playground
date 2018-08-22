@@ -40,7 +40,7 @@ class WishList extends Component {
           {this.props.wishlistProducts && this.props.wishlistProducts.map(
             (data) => <li className="featured-product-line" key={`product-line-${data._id}`}>
               <Product data={data} actionText={"Remove from wishlist"} callback={this.props.wishlistRemoveProduct}
-                actionPlaceholder="- wishlist" mode="simple" /></li>
+                actionIcon="/imgs/wishlist-delete.svg" mode="simple" /></li>
           )}
         </ul>
       </div>

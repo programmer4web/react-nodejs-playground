@@ -35,7 +35,7 @@ export default class Product extends Component {
             <img className="product-img" src={image && image.src ? image.src : 'http://placehold.it/150x150/637d9f/ffffff'} width={150} height={150} />
           </div>
           <div className="product-actions">
-            <CustomButton text={this.props.actionText} placeholder={this.props.actionPlaceholder}
+            <CustomButton text={this.props.actionText} icon={this.props.actionIcon}
               callback={this.props.callback} id={product._id} />
           </div>
         </div>
@@ -47,6 +47,6 @@ export default class Product extends Component {
 Product.propTypes = {
   mode: PropTypes.string,
   actionText: PropTypes.string,
-  actionPlaceholder: PropTypes.string,
+  actionIcon: PropTypes.string,
   callback: PropTypes.func
 }
