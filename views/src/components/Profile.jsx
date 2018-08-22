@@ -57,10 +57,10 @@ export default class Profile extends Component {
 
             <div className="form-content">
 
-              <p>Name:<input type="text" name="name" placeholder="John Doe" onChange={this.handleChange} /></p>
+              <p>Name:<input type="text " name="name" required placeholder="John Doe" onChange={this.handleChange} /></p>
               <p>Position:<input type="text" name="position" placeholder="Project manager" onChange={this.handleChange} /></p>
-              <p>Phone number:<input type="text" name="phone" placeholder="0732405896" onChange={this.handleChange} /></p>
-              <p>Email:<input type="text" name="email" placeholder="john.doe@softvision.ro" onChange={this.handleChange} /></p>
+              <p>Phone number:<input type="number" name="phone" required placeholder="0732405896" onChange={this.handleChange} /></p>
+              <p>Email:<input type="email" name="email" required placeholder="john.doe@softvision.ro" onChange={this.handleChange} /></p>
               <p>Short bio:<input type="text" name="bio" placeholder="I'm a car enthusiast and a proud workaholic." onChange={this.handleChange} /></p>
 
 
