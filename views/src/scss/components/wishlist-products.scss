@@ -2,6 +2,9 @@
     padding: 12px;
     border: 1px solid #dadada;
     border-radius: 5px;
+    @media screen and (min-width: 480px) {
+      min-width: 466px;
+    }
 }
 
 .wishlist-products-list {
@@ -10,6 +13,12 @@
     max-height: 650px;
     overflow-y: auto;
     list-style-type: none;
+
+    .product-actions {
+      align-items: center;
+      display: flex;
+      margin-top: 0px;
+    }
 
     .action {
       padding: 6px;

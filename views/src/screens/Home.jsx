@@ -5,6 +5,8 @@ import FeaturedProducts from '../components/FeaturedProducts.js';
 import Profile from '../components/Profile.jsx';
 import WishList from '../components/WishList.js';
 import {ContentTabs, ContentTabsHeader} from '../components/ContentTabs.js';
+import Menu from '../components/Menu.js';
+import Footer from '../components/Footer.js';
 
 const formatName = user => `${user.firstName} ${user.lastName}`,
   user = {
@@ -13,6 +15,11 @@ const formatName = user => `${user.firstName} ${user.lastName}`,
     lastName: 'Doe',
   },
   serverUrl = 'http://127.0.0.1:7070/';
+
+const links = [
+  {title: 'Featured Products', url: '/'},
+  {title: 'Departments', url: '/departments'}
+]
 
 class Home extends React.Component {
   constructor(props) {
@@ -28,7 +35,9 @@ class Home extends React.Component {
 
   render() {
     return (
+      <div>
       <div className="content container">
+        <Menu links={links} className="main-menu" />
         <div className="row">
           <h2>Hello, {formatName(user)}!</h2>
         </div>
@@ -72,6 +81,8 @@ class Home extends React.Component {
           </TabPanel>
         </Tabs>
       </div>
+      <Footer links={links} />
+    </div>
     );
   }
 }

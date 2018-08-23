@@ -1,0 +1,38 @@
+$blue: #0098C9;
+.main-menu, .menu {
+  list-style: none;
+  display: flex;
+  padding: 24px;
+}
+
+.main-menu-line {
+  display: flex;
+}
+
+.main-menu-link {
+  position: relative;
+  text-decoration: none;
+  color: $blue;
+  text-transform: uppercase;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 0;
+    height: 1px;
+    transition: 0.4s ease-in;
+    background-color: $blue;
+  }
+
+
+  &:hover::after {
+    width: 100%;
+  }
+
+}
+
+.main-menu-line + .main-menu-line {
+  margin-left: 24px;
+}

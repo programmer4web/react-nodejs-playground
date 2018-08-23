@@ -1,9 +1,7 @@
-body {
+.content {
   background-color: #fefefe; // light-gray
   color: #f8f8f8; //dark-gray
   font-family: sans-serif;
-  display: flex;
-  justify-content: center;
 }
 
 h1 {
@@ -18,30 +16,28 @@ h2 {
 
 
 .container {
+  margin: 0 auto;
   @media only screen and (min-width: 1024px) {
     min-width: 1024px;
+    max-width: 1096px;
   }
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .box {
   display: flex;
-  & + .box {
-    margin-left: 24px;
-  }
 }
 
 .module {
+  margin: 12px;
   padding: 12px;
   background-color: #89a0c1; // gray-blue
   box-shadow: 0 1px 1.5rem rgba(4, 26, 55, 0.25);
-  & + .module {
-    margin-top: 12px;
-  }
 }
 
 

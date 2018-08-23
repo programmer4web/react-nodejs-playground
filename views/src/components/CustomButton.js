@@ -9,13 +9,14 @@ class CustomButton extends Component {
 
   render() {
     const title = this.props.title,
+      text = this.props.text,
      icon = this.props.icon;
     let className = 'action ';
     if(this.props.className) {
       className += this.props.className;
     }
     return <div className={className} title={title} onClick={this.handleClick}>
-      {icon ? <img src={icon} alt={title} width={30} height={30} />: this.props.text}
+      {icon ? <img src={icon} alt={text} title={text} width={20} height={20} />: text}
     </div>
   }
 
