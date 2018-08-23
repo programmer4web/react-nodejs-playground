@@ -103,9 +103,10 @@ class Departments extends Component {
       <div>
         <div className="content container">
           <Header/>
-            <div className="row">
-              <div className="box">
-                <div className="module">
+          <div className="row" style={{marginTop: 66}}>
+            <div className="box">
+              <div className="module">
+                <div className="departments">
                   <h3>Products list</h3>
                   <select onChange={this.handleProductChange}>
                     <option>
@@ -133,9 +134,10 @@ class Departments extends Component {
                   )}
                 </div>
               </div>
-              <div className="box">
-                <div className="module">
-
+            </div>
+            <div className="box">
+              <div className="module">
+                <div className="departments">
                   <h3>Products by Department</h3>
                   <select onChange={this.handleDepartmentChange}>
                     {this.state.departments.map(department => {
@@ -156,8 +158,9 @@ class Departments extends Component {
               </div>
             </div>
           </div>
-          <Footer links={links} />
         </div>
+        <Footer links={links} />
+      </div>
     );
   }
 }
