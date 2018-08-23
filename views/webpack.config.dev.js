@@ -16,7 +16,4 @@ module.exports = merge(webpackCommonConfig, {
 		hot: true,
 	},
 	mode: 'development'
-	// performance: { // added by Me
-	// 	hints: false
-	// }
 });
