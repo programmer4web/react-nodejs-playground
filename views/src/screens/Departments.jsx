@@ -16,17 +16,23 @@ export default class Departments extends Component {
     this.handleDepartmentChange = this.handleDepartmentChange.bind(this);
     this.handleRemoveOnClick = this.handleRemoveOnClick.bind(this);
     this.handleProductChange=this.handleProductChange.bind(this);
+    this.handleDepartmentAdd=this.handleDepartmentAdd.bind(this);
+    this.getUnassignedProducts=this.getUnassignedProducts.bind(this);
   }
 
   componentDidMount() {
     axios.get(`${serverUrl}departments`).then(result => {
       this.setState({ departments: result.data });
     });
-    axios.get(`${serverUrl}products`).then(result => {
-      const resultFiltered = result.data.filter(product =>  product.departments.length == 0 );
-      this.setState({products: resultFiltered});
-    })
+    this.getUnassignedProducts();
+    
   }
+  getUnassignedProducts(){
+  axios.get(`${serverUrl}products`).then(result => {
+    const resultFiltered = result.data.filter(product =>  product.departments.length == 0 );
+    this.setState({products: resultFiltered});
+  })
+}
 
   handleDepartmentChange(e) {
     const departmentId = e.target.value;
@@ -42,8 +48,26 @@ export default class Departments extends Component {
     });
   }
 
-  handleProductChange(product){
-    console.log(product);
+  handleProductChange(e){
+    const productId = e.target.value,
+    product = this.state.products.filter((product) => productId==product._id)[0];
+    this.setState({ product:product});
+
+  }
+
+  handleDepartmentAdd(departmentId){
+    const product = this.state.product;
+    const departments = product.departments || [] ;
+
+    departments.push(departmentId);
+    console.log(product._id);
+    axios.put(`${serverUrl}products/${product._id}`,{ departments}).then( result => {
+      console.log(result.data);
+      this.getUnassignedProducts();
+      
+    })
+
+    
   }
 
   handleRemoveOnClick(product) {
@@ -58,6 +82,7 @@ export default class Departments extends Component {
       const temp = this.state.departmentProducts;
       temp.splice(idx2, 1);
       this.setState({ departmentProducts: temp });
+      this.getUnassignedProducts();
     })
 
   }
@@ -68,6 +93,9 @@ export default class Departments extends Component {
           <div className="module">
             <h3>Products list</h3>
             <select onChange={this.handleProductChange}>
+              <option>
+                  Select value
+              </option>
               {this.state.products && this.state.products.map(product => {
                 return <option key={`product-option-${product._id}`} value={product._id}>{product.name}</option>;
               })
@@ -81,7 +109,7 @@ export default class Departments extends Component {
                   <div>Department Name:{department.name}</div>
                   <div>Abbreviation: {department.abbreviation}</div>
                   <div>Description: {department.description}</div>
-                  <div className="action department-product-add" >
+                  <div className="action department-product-add" onClick={() => this.handleDepartmentAdd(department._id)}  >
                     Add product in department
                     </div>
                   <hr />
@@ -105,7 +133,7 @@ export default class Departments extends Component {
               {this.state.departmentProducts && this.state.departmentProducts.map(((product) => (
                 <li className="departement-product-line" key={`product-line-${product._id}`}>
                   <div className="departement-products"><span className="department-product-name">{product.name}</span>
-                    <div className="action department-product-add" data-id={product._id} onClick={() => this.handlerRemoveOnClick(product)}>
+                    <div className="action department-product-add" data-id={product._id} onClick={() => this.handleRemoveOnClick(product)}>
                       Remove from department
                     </div>
                   </div>
