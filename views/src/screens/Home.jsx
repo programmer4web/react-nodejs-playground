@@ -1,5 +1,7 @@
 import React from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import FeaturedProducts from '../components/FeaturedProducts.js';
 import Profile from '../components/Profile.jsx';
@@ -8,18 +10,13 @@ import {ContentTabs, ContentTabsHeader} from '../components/ContentTabs.js';
 import Menu from '../components/Menu.js';
 import Footer from '../components/Footer.js';
 
-const formatName = user => `${user.firstName} ${user.lastName}`,
-  user = {
-    _id: '5b646febeebb915ff8b221be',
-    firstName: 'John',
-    lastName: 'Doe',
-  },
-  serverUrl = 'http://127.0.0.1:7070/';
-
-const links = [
-  {title: 'Featured Products', url: '/'},
-  {title: 'Departments', url: '/departments'}
-]
+const mapStateToProps = state => {
+  return {
+    serverUrl: state.serverUrl,
+    user: state.user,
+    links: state.links
+  }
+}
 
 class Home extends React.Component {
   constructor(props) {
@@ -34,12 +31,15 @@ class Home extends React.Component {
   }
 
   render() {
+    const props = this.props,
+      links = props.links,
+      user = props.user;
     return (
       <div>
       <div className="content container">
         <Menu links={links} className="main-menu" />
         <div className="row">
-          <h2>Hello, {formatName(user)}!</h2>
+          <h2>Hello, {user.name}!</h2>
         </div>
         <Tabs className="dashboard-tabs">
           <TabList>
@@ -63,7 +63,7 @@ class Home extends React.Component {
           </TabPanel>
           <TabPanel>
             <h2>Profile</h2>
-            <Profile serverUrl={serverUrl} user={user}/>
+            <Profile serverUrl={this.props.serverUrl} user={this.props.user}/>
           </TabPanel>
           <TabPanel>
 
@@ -86,4 +86,10 @@ class Home extends React.Component {
     );
   }
 }
-export default Home;
+export default connect(mapStateToProps)(Home);
+
+Home.propTypes = {
+  serverUrl: PropTypes.string,
+  user: PropTypes.object,
+  links: PropTypes.array
+}
