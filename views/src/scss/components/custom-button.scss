@@ -1,4 +1,4 @@
-.action {
+.custom-button {
   margin-left: 15px;
   display: inline-block;
   padding: 12px;
@@ -14,7 +14,7 @@
 
   &.small {
     padding: 6px 12px;
-    min-width: 65px;
+    min-width: 66px;
     font-size: 13.333px;
     font-weight: 400;
     text-align: center;
@@ -22,12 +22,12 @@
   }
 }
 
-.action:hover {
+.custom-button:hover {
   background-color: #0098C9;
   color: #fff;
   transition: 0.3s;
 }
 
-.action-placeholder::first-letter {
+.custom-button-placeholder::first-letter {
   text-transform: lowercase;
 }

@@ -2,7 +2,7 @@
 
 exports[`Initiated CustomButton matches the snapshot 1`] = `
 <div
-  className="action"
+  className="custom-button "
   onClick={[Function]}
 />
 `;

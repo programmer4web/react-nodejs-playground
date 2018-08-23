@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
+import CustomButton from '../components/CustomButton.js';
 
-const serverUrl = 'http://127.0.0.1:7070/';
+const mapStateToProps = state => {
+  return {
+    serverUrl: state.serverUrl,
+    user: state.user,
+    links: state.links
+  }
+}
 
-export default class Departments extends Component {
+class Departments extends Component {
   constructor(props) {
     super(props);
 
@@ -21,14 +32,14 @@ export default class Departments extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${serverUrl}departments`).then(result => {
+    axios.get(`${this.props.serverUrl}departments`).then(result => {
       this.setState({ departments: result.data });
     });
     this.getUnassignedProducts();
-    
+
   }
   getUnassignedProducts(){
-  axios.get(`${serverUrl}products`).then(result => {
+  axios.get(`${this.props.serverUrl}products`).then(result => {
     const resultFiltered = result.data.filter(product =>  product.departments.length == 0 );
     this.setState({products: resultFiltered});
   })
@@ -41,7 +52,7 @@ export default class Departments extends Component {
       console.warn('Department id is undefined.');
       return;
     }
-    axios.get(`${serverUrl}products?departments=${departmentId}`).then(result => {
+    axios.get(`${this.props.serverUrl}products?departments=${departmentId}`).then(result => {
       console.log(result.data);
       this.setState({ departmentId: departmentId });
       this.setState({ departmentProducts: result.data });
@@ -61,22 +72,22 @@ export default class Departments extends Component {
 
     departments.push(departmentId);
     console.log(product._id);
-    axios.put(`${serverUrl}products/${product._id}`,{ departments}).then( result => {
+    axios.put(`${this.props.serverUrl}products/${product._id}`,{ departments}).then( result => {
       console.log(result.data);
       this.getUnassignedProducts();
-      
+
     })
 
-    
+
   }
 
-  handleRemoveOnClick(product) {
+  handleRemoveOnClick(e, product) {
     const departments = product.departments;
     console.log(departments);
     const idx = departments.indexOf(this.state.departmentId);
     departments.splice(idx, 1);
 
-    axios.put(`${serverUrl}products/${product._id}`, { departments }).then(result => {
+    axios.put(`${this.props.serverUrl}products/${product._id}`, { departments }).then(result => {
       console.log(result.data);
       const idx2 = this.state.departmentProducts.indexOf(product);
       const temp = this.state.departmentProducts;
@@ -84,64 +95,79 @@ export default class Departments extends Component {
       this.setState({ departmentProducts: temp });
       this.getUnassignedProducts();
     })
-
   }
-  render() {
-    return (
-      <div className="row">
-        <div className="box">
-          <div className="module">
-            <h3>Products list</h3>
-            <select onChange={this.handleProductChange}>
-              <option>
-                  Select value
-              </option>
-              {this.state.products && this.state.products.map(product => {
-                return <option key={`product-option-${product._id}`} value={product._id}>{product.name}</option>;
-              })
-              }
-            </select>
-            <hr />
-            <h3>Departments List</h3>
-            {this.state.departments.map(department => {
-              return (
-                <div key={department._id}>
-                  <div>Department Name:{department.name}</div>
-                  <div>Abbreviation: {department.abbreviation}</div>
-                  <div>Description: {department.description}</div>
-                  <div className="action department-product-add" onClick={() => this.handleDepartmentAdd(department._id)}  >
-                    Add product in department
-                    </div>
-                  <hr />
-                </div>
-              )
-            }
-            )}
-          </div>
-        </div>
-        <div className="box">
-          <div className="module">
 
-            <h3>Products by Department</h3>
-            <select onChange={this.handleDepartmentChange}>
-              {this.state.departments.map(department => {
-                return <option key={`department-option-${department._id}`} value={department._id}>{department.name}</option>;
-              })
-              }
-            </select>
-            <ul className="department-products-list">
-              {this.state.departmentProducts && this.state.departmentProducts.map(((product) => (
-                <li className="departement-product-line" key={`product-line-${product._id}`}>
-                  <div className="departement-products"><span className="department-product-name">{product.name}</span>
-                    <div className="action department-product-add" data-id={product._id} onClick={() => this.handleRemoveOnClick(product)}>
-                      Remove from department
-                    </div>
-                  </div>
-                </li>)))}
-            </ul>
+  render() {
+    const links = this.props.links;
+    return (
+      <div>
+        <div className="content container">
+          <Header/>
+          <div className="row" style={{marginTop: 66}}>
+            <div className="box">
+              <div className="module">
+                <div className="departments">
+                  <h3>Products list</h3>
+                  <select onChange={this.handleProductChange}>
+                    <option>
+                        Select value
+                    </option>
+                    {this.state.products && this.state.products.map(product => {
+                      return <option key={`product-option-${product._id}`} value={product._id}>{product.name}</option>;
+                    })
+                    }
+                  </select>
+                  <hr />
+                  <h3>Departments List</h3>
+                  {this.state.departments.map(department => {
+                    return (
+                      <div key={department._id}>
+                        <div>Department Name:{department.name}</div>
+                        <div>Abbreviation: {department.abbreviation}</div>
+                        <div>Description: {department.description}</div>
+                        <CustomButton className="department-product-add" callback={e => this.handleDepartmentAdd(e, department._id)}
+                          text="Add product in department" />
+                        <hr />
+                      </div>
+                    )
+                  }
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="box">
+              <div className="module">
+                <div className="departments">
+                  <h3>Products by Department</h3>
+                  <select onChange={this.handleDepartmentChange}>
+                    {this.state.departments.map(department => {
+                      return <option key={`department-option-${department._id}`} value={department._id}>{department.name}</option>;
+                    })
+                    }
+                  </select>
+                  <ul className="department-products-list">
+                    {this.state.departmentProducts && this.state.departmentProducts.map(((product) => (
+                      <li className="departement-product-line" key={`product-line-${product._id}`}>
+                        <div className="departement-products"><span className="department-product-name">{product.name}</span>
+                          <CustomButton className="department-product-add" callback={e => this.handleRemoveOnClick(e, product)}
+                            text="Remove from department" />
+                        </div>
+                      </li>)))}
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <Footer links={links} />
       </div>
     );
   }
+}
+
+export default connect(mapStateToProps)(Departments);
+
+Departments.propTypes = {
+  serverUrl: PropTypes.string,
+  links: PropTypes.array
 }

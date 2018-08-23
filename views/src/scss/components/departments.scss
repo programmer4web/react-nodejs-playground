@@ -1,10 +1,21 @@
+.departments {
+  padding: 6px;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  height: calc(100% - 14px);
+
+  @media screen and (min-width: 480px) {
+    min-width: 466px;
+  }
+}
 .departement-products{
     justify-content: space-between;
     display:flex;
 }
 
-.department-products-list{
-    list-style: none;
+.department-products-list {
+  list-style: none;
+  padding-left: 24px;
 }
 
 .departement-product-line{

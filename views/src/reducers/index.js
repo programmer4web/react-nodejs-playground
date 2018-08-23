@@ -31,9 +31,17 @@ const initialState = {
   serverUrl: 'http://127.0.0.1:7070/',
   user: {
     _id: '5b646febeebb915ff8b221be',
+    name: {
+      first: 'Jon',
+      last: 'Doe'
+    },
     wishlist: [],
     wishlistProducts: []
   },
+  links: [
+    {title: 'Featured Products', url: '/'},
+    {title: 'Departments', url: '/departments'}
+  ],
   featuredProducts: {
     source: [],
     visible: [],

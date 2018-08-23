@@ -23,5 +23,11 @@
   },
   "env": {
     "es6": true
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.2.0",
+    }
   }
 }

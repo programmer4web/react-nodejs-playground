@@ -51,7 +51,7 @@ export default class Profile extends Component {
             <li><p><img src="https://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/phone-call-active-512.png" className="icon-image" />{this.state.phoneNo}</p></li>
             <li><p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png" className="icon-image" />{this.state.email}</p></li>
             <li><p><img src="https://cdn1.iconfinder.com/data/icons/social-messaging-productivity-1-1/128/gender-male2-512.png" className="icon-image" />{this.state.shortBio}</p></li>
-            <div className="action" onClick={this.handleEditProfile}>Edit Profile
+            <div className="custom-button" onClick={this.handleEditProfile}>Edit Profile
             </div>
           </ul>
         </div>
@@ -60,7 +60,7 @@ export default class Profile extends Component {
 
           <form className="profile-page-edit-form" method="post" action={`${this.props.serverUrl}users/`}>
             <p>Change your profile picture:</p>
-            <input type="file" className="action" name="pic" accept="image/*" />
+            <input type="file" className="custom-button" name="pic" accept="image/*" />
 
 
             <div className="form-content">
@@ -84,7 +84,7 @@ export default class Profile extends Component {
 
             </div>
             {/* <input type="submit" className="action" /> */}
-            <button className="action" onClick={e => this.onSubmit(e)}>Submit</button>
+            <button className="custom-button" onClick={e => this.onSubmit(e)}>Submit</button>
           </form>
         </div>
       </div>
