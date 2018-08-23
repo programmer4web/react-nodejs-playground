@@ -11,7 +11,7 @@ class CustomButton extends Component {
     const title = this.props.title,
       text = this.props.text,
      icon = this.props.icon;
-    let className = 'action ';
+    let className = 'custom-button ';
     if(this.props.className) {
       className += this.props.className;
     }
