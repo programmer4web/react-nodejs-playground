@@ -12,7 +12,8 @@ const mongoose = require('mongoose'),
   images: [],
   package: String,
   departments: [{type: Schema.Types.ObjectId, ref: 'Department'}],
-  status: String
+  status: String,
+  featured: Boolean
 }, options);
 
 mongoose.model('Product', productSchema);

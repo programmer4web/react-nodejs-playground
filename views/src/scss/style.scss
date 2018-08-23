@@ -1,11 +1,13 @@
+$dark-gray: #555;
 .content {
   background-color: #fefefe; // light-gray
-  color: #f8f8f8; //dark-gray
+  color: $dark-gray; //dark-gray
   font-family: sans-serif;
+  min-height: calc(100vh - 292px);
 }
 
 h1 {
-  color: #f8f8f8;
+  color: $dark-gray;
   font-family: helvetica;
 }
 
@@ -19,7 +21,7 @@ h2 {
   margin: 0 auto;
   @media only screen and (min-width: 1024px) {
     min-width: 1024px;
-    max-width: 1096px;
+    max-width: 1024px;
   }
 }
 
@@ -34,8 +36,8 @@ h2 {
 }
 
 .module {
-  margin: 12px;
-  padding: 12px;
+  margin: 6px;
+  padding: 6px;
   background-color: #89a0c1; // gray-blue
   box-shadow: 0 1px 1.5rem rgba(4, 26, 55, 0.25);
 }
@@ -43,3 +45,4 @@ h2 {
 
 
 @import 'components/index.scss';
+@import 'layout/index.scss';

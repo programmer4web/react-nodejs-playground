@@ -7,7 +7,7 @@ import FeaturedProducts from '../components/FeaturedProducts.js';
 import Profile from '../components/Profile.jsx';
 import WishList from '../components/WishList.js';
 import {ContentTabs, ContentTabsHeader} from '../components/ContentTabs.js';
-import Menu from '../components/Menu.js';
+import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 
 const mapStateToProps = state => {
@@ -32,15 +32,11 @@ class Home extends React.Component {
 
   render() {
     const props = this.props,
-      links = props.links,
-      user = props.user;
+      links = props.links;
     return (
       <div>
       <div className="content container">
-        <Menu links={links} className="main-menu" />
-        <div className="row">
-          <h2>Hello, {user.name}!</h2>
-        </div>
+        <Header />
         <Tabs className="dashboard-tabs">
           <TabList>
             <Tab>Products</Tab>
