@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
+import CustomButton from '../components/CustomButton.js';
 
 const mapStateToProps = state => {
   return {
@@ -80,7 +81,7 @@ class Departments extends Component {
 
   }
 
-  handleRemoveOnClick(product) {
+  handleRemoveOnClick(e, product) {
     const departments = product.departments;
     console.log(departments);
     const idx = departments.indexOf(this.state.departmentId);
@@ -94,8 +95,8 @@ class Departments extends Component {
       this.setState({ departmentProducts: temp });
       this.getUnassignedProducts();
     })
-
   }
+
   render() {
     const links = this.props.links;
     return (
@@ -123,9 +124,8 @@ class Departments extends Component {
                         <div>Department Name:{department.name}</div>
                         <div>Abbreviation: {department.abbreviation}</div>
                         <div>Description: {department.description}</div>
-                        <div className="custom-button department-product-add" onClick={() => this.handleDepartmentAdd(department._id)}  >
-                          Add product in department
-                          </div>
+                        <CustomButton className="department-product-add" callback={e => this.handleDepartmentAdd(e, department._id)}
+                          text="Add product in department" />
                         <hr />
                       </div>
                     )
@@ -147,9 +147,8 @@ class Departments extends Component {
                     {this.state.departmentProducts && this.state.departmentProducts.map(((product) => (
                       <li className="departement-product-line" key={`product-line-${product._id}`}>
                         <div className="departement-products"><span className="department-product-name">{product.name}</span>
-                          <div className="custom-button department-product-add" data-id={product._id} onClick={() => this.handleRemoveOnClick(product)}>
-                            Remove from department
-                          </div>
+                          <CustomButton className="department-product-add" callback={e => this.handleRemoveOnClick(e, product)}
+                            text="Remove from department" />
                         </div>
                       </li>)))}
                   </ul>

@@ -20,9 +20,9 @@ class CustomButton extends Component {
     </div>
   }
 
-  handleClick(e) {
+  handleClick(e, data) {
     e.preventDefault();
-    this.props.callback(this.props.id);
+    this.props.callback(this.props.id, data);
   }
 }
 
