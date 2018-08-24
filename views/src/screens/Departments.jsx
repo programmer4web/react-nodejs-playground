@@ -47,48 +47,41 @@ class Departments extends Component {
 
   handleDepartmentChange(e) {
     const departmentId = e.target.value;
-    console.log('new department: ', departmentId);
     if (!departmentId) {
       console.warn('Department id is undefined.');
       return;
     }
     axios.get(`${this.props.serverUrl}products?departments=${departmentId}`).then(result => {
-      console.log(result.data);
       this.setState({ departmentId: departmentId });
       this.setState({ departmentProducts: result.data });
     });
   }
 
-  handleProductChange(e){
+  handleProductChange(e) {
     const productId = e.target.value,
     product = this.state.products.filter((product) => productId==product._id)[0];
     this.setState({ product:product});
 
   }
 
-  handleDepartmentAdd(departmentId){
-    const product = this.state.product;
-    const departments = product.departments || [] ;
+  handleDepartmentAdd(e, departmentId) {
+    const product = this.state.product,
+      departments = product.departments || [] ;
 
     departments.push(departmentId);
     console.log(product._id);
     axios.put(`${this.props.serverUrl}products/${product._id}`,{ departments}).then( result => {
       console.log(result.data);
       this.getUnassignedProducts();
-
     })
-
-
   }
 
   handleRemoveOnClick(e, product) {
-    const departments = product.departments;
-    console.log(departments);
-    const idx = departments.indexOf(this.state.departmentId);
+    const departments = product.departments,
+      idx = departments.indexOf(this.state.departmentId);
     departments.splice(idx, 1);
 
-    axios.put(`${this.props.serverUrl}products/${product._id}`, { departments }).then(result => {
-      console.log(result.data);
+    axios.put(`${this.props.serverUrl}products/${product._id}`, { departments }).then(() => {
       const idx2 = this.state.departmentProducts.indexOf(product);
       const temp = this.state.departmentProducts;
       temp.splice(idx2, 1);
@@ -146,7 +139,7 @@ class Departments extends Component {
                     }
                   </select>
                   <ul className="department-products-list">
-                    {this.state.departmentProducts && this.state.departmentProducts.map((product) => (
+                    {this.state.departmentProducts && this.state.departmentProducts.map(product => (
                       <li className="departement-product-line" key={`product-line-${product._id}`}>
                         <div className="departement-products"><span className="department-product-name">{product.name}</span>
                           <CustomButton className="department-product-add" callback={e => this.handleRemoveOnClick(e, product)}
