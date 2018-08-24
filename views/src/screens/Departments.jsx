@@ -146,13 +146,13 @@ class Departments extends Component {
                     }
                   </select>
                   <ul className="department-products-list">
-                    {this.state.departmentProducts && this.state.departmentProducts.map(((product) => (
+                    {this.state.departmentProducts && this.state.departmentProducts.map((product) => (
                       <li className="departement-product-line" key={`product-line-${product._id}`}>
                         <div className="departement-products"><span className="department-product-name">{product.name}</span>
                           <CustomButton className="department-product-add" callback={e => this.handleRemoveOnClick(e, product)}
                             text="Remove from department" />
                         </div>
-                      </li>)))}
+                      </li>))}
                   </ul>
                 </div>
               </div>

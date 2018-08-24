@@ -4,10 +4,13 @@ import {connect} from 'react-redux';
 
 import Product from './Product.js';
 import {wishlistGetIds, wishlistRemoveProduct} from '../actions/WishlistActions.js';
+import Modal from './Modal.js';
+import Notification from './Notification.js';
 
 const mapStateToProps = state => {
     return {
-      wishlistProducts: state.user.wishlistProducts
+      wishlistProducts: state.user.wishlistProducts,
+      wishlistError: state.user.wishlistError
     };
   },
   mapDispatchToProps = dispatch => {
@@ -19,14 +22,6 @@ const mapStateToProps = state => {
 ;
 
 class WishList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      userWishlist: [],
-      products: []
-    }
-  }
 
   componentDidMount() {
     this.props.wishlistGetIds();
@@ -43,6 +38,10 @@ class WishList extends Component {
                 actionIcon="/imgs/wishlist-delete.svg" mode="simple" /></li>
           )}
         </ul>
+        {this.props.wishlistError}
+        <Modal>
+          <Notification title={this.props.wishlistError}/>
+        </Modal>
       </div>
     )
   }
@@ -52,6 +51,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(WishList);
 
 WishList.propTypes = {
   wishlistProducts: PropTypes.array,
+  wislistError: PropTypes.string,
   wishlistGetIds: PropTypes.func,
   wishlistAddProduct: PropTypes.func,
   wishlistRemoveProduct: PropTypes.func,

@@ -23,7 +23,7 @@ export const wishlistAddProductApiCall = (productId, url) => {
           resolve(res.data.wishlist);
         });
       } else {
-        reject('product is already in wishlist.');
+        reject('Product is already in wishlist!');
       }
     }).catch(err => {
       console.warn(err);
