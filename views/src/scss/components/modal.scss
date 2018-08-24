@@ -17,17 +17,20 @@ $modal-shadow: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
+    display: flex;
+    align-items: center;
     background:#e1e1e1;
     margin: 0 auto;
     position:relative;
     z-index:41;
     top: 25%;
     padding:30px;
-    width:350px;
+    width:400px;
     box-shadow: 0 0 10px $modal-shadow;
     justify-content: space-between;
 }
 
 modal-content-close {
+  margin: 0;
   border: 2px solid #0098C9;
 }

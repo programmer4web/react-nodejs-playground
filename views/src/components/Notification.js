@@ -15,7 +15,8 @@ class Notification extends Component {
   render() {
     return (
       <div className="notification">
-        {this.props.title}
+        <img src={this.props.icon} alt={"warning"} width={40} height={40}/>
+        <div className="notification-title">{this.props.title}</div>
       </div>
     )
   }
@@ -24,5 +25,6 @@ class Notification extends Component {
 export default connect(null, mapDispatchToProps)(Notification);
 
 Notification.propTypes = {
+  icon: PropTypes.string,
   title: PropTypes.string
 }

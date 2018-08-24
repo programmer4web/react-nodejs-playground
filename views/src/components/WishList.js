@@ -38,9 +38,8 @@ class WishList extends Component {
                 actionIcon="/imgs/wishlist-delete.svg" mode="simple" /></li>
           )}
         </ul>
-        {this.props.wishlistError}
         <Modal>
-          <Notification title={this.props.wishlistError}/>
+          <Notification icon={'/imgs/warning.svg'} title={this.props.wishlistError}/>
         </Modal>
       </div>
     )
@@ -51,7 +50,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(WishList);
 
 WishList.propTypes = {
   wishlistProducts: PropTypes.array,
-  wislistError: PropTypes.string,
+  wishlistError: PropTypes.string,
   wishlistGetIds: PropTypes.func,
   wishlistAddProduct: PropTypes.func,
   wishlistRemoveProduct: PropTypes.func,
