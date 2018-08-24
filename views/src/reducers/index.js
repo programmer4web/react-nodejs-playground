@@ -33,7 +33,11 @@ const initialState = {
     _id: '5b646febeebb915ff8b221be',
     name: {
       first: 'Jon',
-      last: 'Doe'
+      last: 'Doe',
+      position:'admin',
+      bio:"sunt frumos",
+      phone:"071231311",
+      email:"dasdafa@cf.com"
     },
     wishlist: [],
     wishlistProducts: []

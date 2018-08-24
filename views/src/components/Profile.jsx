@@ -1,29 +1,92 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TextField from './TextField';
+import axios from 'axios';
 
 export default class Profile extends Component {
   constructor() {
     super();
     this.state = {
       firstName: '',
+      firstNameError: '',
       lastName: '',
+      lastNameError: '',
       jobTitle: '',
+      jobTitleError: '',
       email: '',
+      emailError: '',
       phoneNo: '',
+      phoneNoError: '',
       shortBio: '',
+      shortBioError: '',
     }
   }
   change(e) {
-    // this.props.onChange({ [e.target.name]: e.target.value });
+    const name = e.target.name;
+    this.validate(name);
+
     this.setState({
       [e.target.name]: e.target.value
     });
+
+  }
+
+  validate(name) {
+    let isError = false;
+    let errors = {};
+    if ((name === "phoneNo" || name === "submit") && this.state.phoneNo.length < 5) {
+      isError = true;
+      errors.phoneNoError = "Phone number must be at least 5 numbers long";
+    }
+    else if (name === "phoneNo") {
+      isError = false;
+      errors.phoneNoError = null;
+    }
+
+
+    if ((name === "email" || name === "submit") && this.state.email.indexOf("@") === -1) {
+      isError = true;
+      errors.emailError = "Requires valid email";
+    }
+    else if (name === "email") {
+      isError = false;
+      errors.emailError = null;
+    }
+    this.setState({
+      ...this.state,
+      ...errors
+    })
+
+
+    return isError;
   }
 
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state);
-
+    const err = this.validate();
+    console.log("eroare:",err);
+    if (!err) {
+      axios.put(`${this.props.serverUrl}users/5b646febeebb915ff8b221be`,
+      {
+        name:{
+          first: this.state.firstName,
+          last:this.state.lastName},
+        position :this.state.jobTitle,
+        email:this.state.email,
+        phone:this.state.phoneNo,
+        bio:this.state.shortBio
+      }
+    )
+      this.setState({
+        firstName: '',
+        lastName: '',
+        jobTitle: '',
+        email: '',
+        phoneNo: '',
+        shortBio: ''
+      });
+    }
   }
 
   render() {
@@ -43,14 +106,14 @@ export default class Profile extends Component {
           <img src="https://www.w3schools.com/w3images/avatar2.png" className="profile-page-image-content" alt="Avatar" />
         </div>
         <div className="profile-page-title">
-          <h3>{this.state.firstName + " " + this.state.lastName}</h3>
-          <h4>{this.state.jobTitle}</h4>
+          <h3>{this.props.user.name.first + " " + this.props.user.name.last}</h3>
+          <h4>{this.props.user.name.position}</h4>
         </div>
         <div className="profile-page-information">
           <ul className="profile-page-information-list">
-            <li><p><img src="https://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/phone-call-active-512.png" className="icon-image" />{this.state.phoneNo}</p></li>
-            <li><p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png" className="icon-image" />{this.state.email}</p></li>
-            <li><p><img src="https://cdn1.iconfinder.com/data/icons/social-messaging-productivity-1-1/128/gender-male2-512.png" className="icon-image" />{this.state.shortBio}</p></li>
+            <li><p><img src="https://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/phone-call-active-512.png" className="icon-image" />{this.props.user.phone}</p></li>
+            <li><p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png" className="icon-image" />{this.props.user.email}</p></li>
+            <li><p><img src="https://cdn1.iconfinder.com/data/icons/social-messaging-productivity-1-1/128/gender-male2-512.png" className="icon-image" />{this.props.user.bio}</p></li>
             <div className="custom-button" onClick={this.handleEditProfile}>Edit Profile
             </div>
           </ul>
@@ -65,26 +128,33 @@ export default class Profile extends Component {
 
             <div className="form-content">
 
-              <p>First name: <input name="firstName" placeholder="First name"
-                value={this.state.firstName}
-                onChange={e => this.change(e)} /></p>
-              <p>Last name: <input name="lastName" placeholder="Last name"
-                value={this.state.lastName}
-                onChange={e => this.change(e)} /></p>
-              <p>Position: <input name="jobTitle" placeholder="Position"
-                onChange={e => this.change(e)} /></p>
-              <p>Phone number: <input name="phoneNo" placeholder="Phone number"
-                onChange={e => this.change(e)} /></p>
-              <p>Email:<input name="email" placeholder="Email"
-                onChange={e => this.change(e)} /></p>
-              <p>Short bio:<input name="shortBio" placeholder="Short bio"
-                onChange={e => this.change(e)} /></p>
+              <div>First name: <TextField name="firstName" placeholder="First name"
+                errorText={this.state.firstNameError}
+                defaultValue={this.state.firstName}
+                onChange={e => this.change(e)} /></div>
+              <div>Last name: <TextField name="lastName" placeholder="Last name"
+                errorText={this.state.lastNameError}
+
+                onChange={e => this.change(e)} /></div>
+              <div>Position: <TextField name="jobTitle" placeholder="Position"
+
+                errorText={this.state.jobTitleError}
+                onChange={e => this.change(e)} /></div>
+              <div>Phone number: <TextField name="phoneNo" placeholder="Phone number"
+                errorText={this.state.phoneNoError}
+                onChange={e => this.change(e)} /></div>
+              <div>Email:<TextField name="email" placeholder="Email"
+                errorText={this.state.emailError}
+                onChange={e => this.change(e)} /></div>
+              <div>Short bio:<TextField name="shortBio" placeholder="Short bio"
+                errorText={this.state.shortBioError}
+                onChange={e => this.change(e)} /></div>
 
 
 
             </div>
             {/* <input type="submit" className="action" /> */}
-            <button className="custom-button" onClick={e => this.onSubmit(e)}>Submit</button>
+            <button name="submit" className="custom-button" onClick={e => this.onSubmit(e)}>Submit</button>
           </form>
         </div>
       </div>
