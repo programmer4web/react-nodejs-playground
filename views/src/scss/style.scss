@@ -4,6 +4,10 @@ $dark-gray: #555;
   color: $dark-gray; //dark-gray
   font-family: 'Roboto', sans-serif;
   min-height: calc(100vh - 292px);
+
+  &.error {
+    overflow: hidden; // Modal error > Prevent scroll
+  }
 }
 
 h1 {

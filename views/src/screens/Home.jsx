@@ -14,7 +14,8 @@ const mapStateToProps = state => {
   return {
     serverUrl: state.serverUrl,
     user: state.user,
-    links: state.links
+    links: state.links,
+    error: state.user.wishlistError ? 'error': ''
   }
 }
 
@@ -35,7 +36,7 @@ class Home extends React.Component {
       links = props.links;
     return (
       <div>
-      <div className="content container">
+      <div className={`content container ${this.props.error}`}>
         <Header />
         <Tabs className="dashboard-tabs">
           <TabList>
@@ -87,5 +88,6 @@ export default connect(mapStateToProps)(Home);
 Home.propTypes = {
   serverUrl: PropTypes.string,
   user: PropTypes.object,
-  links: PropTypes.array
+  links: PropTypes.array,
+  error: PropTypes.string
 }
