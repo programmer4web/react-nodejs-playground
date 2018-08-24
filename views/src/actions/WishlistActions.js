@@ -4,7 +4,8 @@ import {
   WISHLIST_REMOVE_PRODUCT,
   WISHLIST_SET_IDS,
   WISHLIST_GET_PRODUCTS,
-  WISHLIST_SET_PRODUCTS
+  WISHLIST_SET_PRODUCTS,
+  WISHLIST_ERROR
 } from './action-types.js';
 
 export const wishlistGetIds = () => ({
@@ -35,4 +36,9 @@ export const wishlistGetProducts = wishlist => ({
 export const wishlistSetProducts = wishlistProducts => ({
   type: WISHLIST_SET_PRODUCTS,
   payload: wishlistProducts
+});
+
+export const wishlistError = err => ({
+  type: WISHLIST_ERROR,
+  payload: err
 });

@@ -5,13 +5,17 @@ import {
   WISHLIST_SET_IDS,
   WISHLIST_GET_PRODUCTS,
   WISHLIST_SET_PRODUCTS,
+  WISHLIST_ERROR,
 
   FEATUREDPRODUCTS_GET_SOURCE,
   FEATUREDPRODUCTS_SET_SOURCE,
   FEATUREDPRODUCTS_SET_VISIBLE,
   FEATUREDPRODUCTS_HANDLE_MODE,
   FEATUREDPRODUCTS_APPLY_FILTER,
-  FEATUREDPRODUCTS_SET_FILTERS
+  FEATUREDPRODUCTS_SET_FILTERS,
+
+  MODAL_OPEN,
+  MODAL_CLOSE
   } from '../actions/action-types.js';
 
 import {
@@ -36,7 +40,8 @@ const initialState = {
       last: 'Doe'
     },
     wishlist: [],
-    wishlistProducts: []
+    wishlistProducts: [],
+    wishlistError: ''
   },
   links: [
     {title: 'Featured Products', url: '/'},
@@ -50,6 +55,14 @@ const initialState = {
       search: '',
       sort: ''
     }
+  },
+  notifications: {
+    items: [
+      {title: 'test notification'}
+    ]
+  },
+  modal: {
+    status: false
   }
 };
 
@@ -67,7 +80,8 @@ const rootReducer = (state = initialState, action) => {
     case WISHLIST_ADD_PRODUCT:
       wishlistAddProductApiCall(action.payload, userUrl).then(wishlist => {
         action.asyncDispatch({type: WISHLIST_SET_IDS, payload: wishlist});
-      }).catch(err => console.warn(err));
+      }).catch(err => action.asyncDispatch({type: WISHLIST_ERROR, payload: err})
+        );
       return state;
 
     case WISHLIST_REMOVE_PRODUCT:
@@ -91,6 +105,12 @@ const rootReducer = (state = initialState, action) => {
     case WISHLIST_SET_PRODUCTS:
       return Object.assign({}, state, {
         user: Object.assign({}, state.user, {wishlistProducts: action.payload})
+      });
+
+    case WISHLIST_ERROR:
+      return Object.assign({}, state, {
+        user: Object.assign({}, state.user, {wishlistError: action.payload}),
+        modal: {status: true}
       });
 
     case FEATUREDPRODUCTS_GET_SOURCE:
@@ -128,6 +148,16 @@ const rootReducer = (state = initialState, action) => {
         filters: Object.assign({}, state.featuredProducts.filters, {[action.payload.task]: action.payload.value})
       })
     });
+
+    case MODAL_OPEN:
+      return Object.assign({}, state, {
+        modal: Object.assign({}, state.modal, {status: true})
+      });
+
+    case MODAL_CLOSE:
+      return Object.assign({}, state, {
+        modal: Object.assign({}, state.modal, {status: false})
+      });
 
     default:
       return state;

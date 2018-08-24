@@ -1,0 +1,10 @@
+$orange: #f4a442;
+
+.notification {
+  margin: 12px;
+  padding: 12px;
+  display: inline-block;
+  border: 2px solid $orange;
+  border-radius: 5px;
+  color: #555;
+}
