@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import CustomButton from '../components/CustomButton.js';
+import ProductsAutocomplete from '../components/ProductsAutocomplete.js';
 
 const mapStateToProps = state => {
   return {
@@ -26,7 +27,7 @@ class Departments extends Component {
 
     this.handleDepartmentChange = this.handleDepartmentChange.bind(this);
     this.handleRemoveOnClick = this.handleRemoveOnClick.bind(this);
-    this.handleProductChange=this.handleProductChange.bind(this);
+    // this.handleProductChange=this.handleProductChange.bind(this);
     this.handleDepartmentAdd=this.handleDepartmentAdd.bind(this);
     this.getUnassignedProducts=this.getUnassignedProducts.bind(this);
   }
@@ -57,12 +58,11 @@ class Departments extends Component {
     });
   }
 
-  handleProductChange(e) {
-    const productId = e.target.value,
-    product = this.state.products.filter((product) => productId==product._id)[0];
-    this.setState({ product:product});
-
-  }
+  // handleProductChange(e) {
+  //   const productId = e.target.value,
+  //   product = this.state.products.filter((product) => productId==product._id)[0];
+  //   this.setState({ product:product});
+  // }
 
   handleDepartmentAdd(e, departmentId) {
     const product = this.state.product,
@@ -101,15 +101,7 @@ class Departments extends Component {
               <div className="module">
                 <div className="departments">
                   <h3>Products list</h3>
-                  <select onChange={this.handleProductChange}>
-                    <option>
-                        Select value
-                    </option>
-                    {this.state.products && this.state.products.map(product => {
-                      return <option key={`product-option-${product._id}`} value={product._id}>{product.name}</option>;
-                    })
-                    }
-                  </select>
+                  <ProductsAutocomplete/>
                   <hr />
                   <h3>Departments List</h3>
                   {this.state.departments.map(department => {

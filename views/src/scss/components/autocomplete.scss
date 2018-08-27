@@ -1,0 +1,32 @@
+.autocomplete, .products-autocomplete {
+  display: inline-block;
+  position: relative;
+  padding: 6px;
+  min-width: 300px;
+
+  .react-list-select {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    padding: 0 12px;
+    list-style: none;
+    background-color: #fff;
+    box-shadow: 0 1px 16px rgba(4, 26, 55, 0.25);
+    box-sizing: border-box;
+    left: 10px;
+  }
+
+  .react-list-select--item {
+    padding: 2px;
+
+    &.is-selected {
+      background-color: #0098C9;
+      color: #fff;
+    }
+  }
+}
+
+.products-autocomplete-input {
+  padding: 6px;
+  width: 100%;
+}
