@@ -3,98 +3,127 @@ import PropTypes from 'prop-types';
 import TextField from './TextField';
 import axios from 'axios';
 
+let errors = {};
 export default class Profile extends Component {
   constructor() {
     super();
     this.state = {
-      firstName: '',
-      firstNameError: '',
-      lastName: '',
-      lastNameError: '',
-      jobTitle: '',
-      jobTitleError: '',
-      email: '',
-      emailError: '',
-      phoneNo: '',
-      phoneNoError: '',
-      shortBio: '',
-      shortBioError: '',
-    }
-  }
-  change(e) {
-    const name = e.target.name;
-    this.validate(name);
-
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-
-  }
-
-  validate(name) {
-    let isError = false;
-    let errors = {};
-    if ((name === "phoneNo" || name === "submit") && this.state.phoneNo.length < 5) {
-      isError = true;
-      errors.phoneNoError = "Phone number must be at least 5 numbers long";
-    }
-    else if (name === "phoneNo") {
-      isError = false;
-      errors.phoneNoError = null;
-    }
-
-
-    if ((name === "email" || name === "submit") && this.state.email.indexOf("@") === -1) {
-      isError = true;
-      errors.emailError = "Requires valid email";
-    }
-    else if (name === "email") {
-      isError = false;
-      errors.emailError = null;
-    }
-    this.setState({
-      ...this.state,
-      ...errors
-    })
-
-
-    return isError;
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.state);
-    const err = this.validate();
-    console.log("eroare:",err);
-    if (!err) {
-      axios.put(`${this.props.serverUrl}users/5b646febeebb915ff8b221be`,
-      {
-        name:{
-          first: this.state.firstName,
-          last:this.state.lastName},
-        position :this.state.jobTitle,
-        email:this.state.email,
-        phone:this.state.phoneNo,
-        bio:this.state.shortBio
-      }
-    )
-      this.setState({
+      editedUser: {
         firstName: '',
         lastName: '',
         jobTitle: '',
         email: '',
         phoneNo: '',
-        shortBio: ''
-      });
+        shortBio: '',
+      }
+    };
+
+    this.validateEmail = this.validateEmail.bind(this);
+    this.validatePhoneNo = this.validatePhoneNo.bind(this);
+    this.change = this.change.bind(this);
+  }
+
+
+  change(e) {
+    const state = this.state;
+    const name = e.target.name;
+    const value = e.target.value;
+    const err1 = this.validateEmail(name, value);
+    const err2 = this.validatePhoneNo(name, value);
+
+    console.log(err1, err2);
+
+    this.setState(
+      Object.assign({}, state, {
+        editedUser: Object.assign({}, state.editedUser, { [name]: e.target.value }),
+        ...errors
+      })
+    );
+
+  }
+
+
+  validateEmail(name, value) {
+    let isError = false;
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line no-useless-escape
+    if ((name === "email" || name === "submit") && value.indexOf("@") === -1) {
+      isError = true;
+      errors.emailError = "Requires the `@` character.";
+    }
+    else if (name === "email") {
+      isError = false;
+      errors.emailError = "";
+    }
+    if ((name === "email" || name === "submit") && !re.test(value)) {
+      isError = true;
+      errors.emailError += " The email should contain a domain.";
+    }
+
+    return isError;
+  }
+
+  validatePhoneNo(name, value) {
+    let isError = false;
+
+    const re = /^[0-9\b]+$/;
+
+    if ((name === "phoneNo" || name === "submit") && value.length < 5) {
+      isError = true;
+      errors.phoneNoError = "Phone number must be at least 5 numbers long";
+    }
+    else if (name === "phoneNo") {
+      isError = false;
+      errors.phoneNoError = "";
+    }
+    if ((name === "phoneNo" || name === "submit") && !re.test(value)) {
+      isError = true;
+      errors.phoneNoError += " The phone number should be only numbers."
+    }
+    return isError;
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.editedUser);
+    const err1 = this.validatePhoneNo("submit", this.state.editedUser.phoneNo);
+    const err2 = this.validateEmail("submit", this.state.editedUser.email);
+    console.log("eroare:", err1, "+", err2);
+    if (!err1 && !err2) {
+      axios.put(`${this.props.serverUrl}users/5b646febeebb915ff8b221be`,
+        {
+          name: {
+            first: this.state.editedUser.firstName,
+            last: this.state.editedUser.lastName
+          },
+          position: this.state.editedUser.jobTitle,
+          email: this.state.editedUser.email,
+          phone: this.state.editedUser.phoneNo,
+          bio: this.state.editedUser.shortBio
+        }
+      )
+      this.setState(
+        Object.assign({}, this.state, {
+          editedUser: Object.assign({}, {
+            firstName: '',
+            lastName: '',
+            jobTitle: '',
+            email: '',
+            phoneNo: '',
+            shortBio: ''
+          })
+        })
+
+      );
     }
   }
 
+  // handleEditProfile(){
+  //   this.setState({
+  //     formVisible: !this.state.formVisible
+  //   });
+  // }
+
   render() {
-    // const user = "John Doe",
-    //   jobTitle = "Project manager",
-    //   phoneNo = "0732405896",
-    //   email = "johndoe@softvision.ro",
-    //   shortBio = "I'm a car enthusiast and a proud workaholic.";
     let classNames = "profile-page-edit-container";
     // if (this.state.formVisible == false) classNames += " hidden";
 
@@ -130,7 +159,6 @@ export default class Profile extends Component {
 
               <div>First name: <TextField name="firstName" placeholder="First name"
                 errorText={this.state.firstNameError}
-                defaultValue={this.state.firstName}
                 onChange={e => this.change(e)} /></div>
               <div>Last name: <TextField name="lastName" placeholder="Last name"
                 errorText={this.state.lastNameError}
