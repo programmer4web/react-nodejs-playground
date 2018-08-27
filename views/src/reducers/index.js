@@ -15,7 +15,11 @@ import {
   FEATUREDPRODUCTS_SET_FILTERS,
 
   MODAL_OPEN,
-  MODAL_CLOSE
+  MODAL_CLOSE,
+
+  DEPARTMENTS_PRODUCTS_SEARCH,
+  DEPARTMENTS_PRODUCTS_SET,
+  DEPARTMENTS_PRODUCTS_SELECTED_CHANGED
   } from '../actions/action-types.js';
 
 import {
@@ -30,6 +34,8 @@ import {
 } from '../apiCall/FeaturedProductsApiCall.js';
 
 import {featuredProductsApplyFilterReducer} from './FeaturedProductsReducers.js';
+
+import {autocompleteSearchApiCall} from '../apiCall/AutocompleteApiCall.js';
 
 const initialState = {
   serverUrl: 'http://127.0.0.1:7070/',
@@ -58,6 +64,13 @@ const initialState = {
     filters: {
       search: '',
       sort: ''
+    }
+  },
+  departments: {
+    products: {
+      items: [],
+      search: '',
+      selected: {}
     }
   },
   notifications: {
@@ -161,6 +174,31 @@ const rootReducer = (state = initialState, action) => {
     case MODAL_CLOSE:
       return Object.assign({}, state, {
         modal: Object.assign({}, state.modal, {status: false})
+      });
+
+    case DEPARTMENTS_PRODUCTS_SEARCH:
+      autocompleteSearchApiCall(productsUrl, action.payload).then(products => {
+        action.asyncDispatch({type: DEPARTMENTS_PRODUCTS_SET, payload: products});
+      });
+      return state;
+
+    case DEPARTMENTS_PRODUCTS_SET:
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          products: Object.assign({}, state.departments.products, {
+            items: action.payload
+          })
+        })
+      });
+
+    case DEPARTMENTS_PRODUCTS_SELECTED_CHANGED:
+    console.log('selected: ', action.payload);
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          products: Object.assign({}, state.departments.products, {
+            selected: action.payload
+          })
+        })
       });
 
     default:

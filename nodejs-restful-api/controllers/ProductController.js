@@ -11,6 +11,8 @@ const Product = require('../models/Product');
 // RETURNS ALL THE PRODUCTS IN THE DATABASE
 router.get('/', (req, res) => {
     let ids = req.query.ids,
+      search = req.query.search,
+      limit = req.query.limit || 50,
         condition = {};
 
     if (ids && ids.length > 0) {
@@ -22,13 +24,15 @@ router.get('/', (req, res) => {
     if(departments && departments.length > 0){
       condition={ $and: [ condition, {departments: {$in: departments}}]};
     }
-    
-    
+
+    if(search) {
+      condition = { name: { $regex: search, $options: 'i' } }
+    }
 
   Product.find(condition, (err, products) => {
     if (err) return res.status(500).send("There was a problem finding the products.");
     res.status(200).send(products);
-  });
+  }).limit(limit);
 });
 
 // GETS A SINGLE PRODUCT FROM THE DATABASE
