@@ -1,6 +1,10 @@
 MIT License
 
-Copyright (c) 2017 Temi Lajumoke
+Copyright (c) 2018
+Adnan Rahić - nodejs-restful-api
+Temi Lajumoke - react-webpack-starter
+
+The Components and rest of App. Andrei-Constantin Alexandru, Răzvan Ghercă
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
