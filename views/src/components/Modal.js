@@ -23,6 +23,7 @@ class Modal extends Component {
 
     // create modal id and add to state to later identify for close/distroy
   }
+
   render() {
     const className = this.props.className,
       hidden = this.props.status == false? 'hidden': '';
