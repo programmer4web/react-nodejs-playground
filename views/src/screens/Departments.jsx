@@ -12,7 +12,8 @@ const mapStateToProps = state => {
   return {
     serverUrl: state.serverUrl,
     user: state.user,
-    links: state.links
+    links: state.links,
+    product: state.departments.products.selected
   }
 }
 
@@ -27,7 +28,6 @@ class Departments extends Component {
 
     this.handleDepartmentChange = this.handleDepartmentChange.bind(this);
     this.handleRemoveOnClick = this.handleRemoveOnClick.bind(this);
-    // this.handleProductChange=this.handleProductChange.bind(this);
     this.handleDepartmentAdd=this.handleDepartmentAdd.bind(this);
     this.getUnassignedProducts=this.getUnassignedProducts.bind(this);
   }
@@ -58,15 +58,13 @@ class Departments extends Component {
     });
   }
 
-  // handleProductChange(e) {
-  //   const productId = e.target.value,
-  //   product = this.state.products.filter((product) => productId==product._id)[0];
-  //   this.setState({ product:product});
-  // }
-
   handleDepartmentAdd(e, departmentId) {
-    const product = this.state.product,
-      departments = product.departments || [] ;
+    const product = this.props.product;
+    if(!product) {
+      console.warn('No product selected in Products List.');
+      return;
+    }
+    const departments = product.departments || [] ;
 
     departments.push(departmentId);
     console.log(product._id);
@@ -154,5 +152,6 @@ export default connect(mapStateToProps)(Departments);
 
 Departments.propTypes = {
   serverUrl: PropTypes.string,
-  links: PropTypes.array
+  links: PropTypes.array,
+  product: PropTypes.object
 }

@@ -10,12 +10,13 @@
 }
 .departement-products{
     justify-content: space-between;
-    display:flex;
+    display: flex;
+    align-items: center;
 }
 
 .department-products-list {
   list-style: none;
-  padding-left: 24px;
+  padding-left: 6px;
 }
 
 .departement-product-line{
