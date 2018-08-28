@@ -3,12 +3,12 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import FeaturedProducts from '../components/FeaturedProducts.js';
+import FeaturedProducts from '../components/FeaturedProducts.jsx';
 import Profile from '../components/Profile.jsx';
-import WishList from '../components/WishList.js';
-import {ContentTabs, ContentTabsHeader} from '../components/ContentTabs.js';
-import Header from '../components/Header.js';
-import Footer from '../components/Footer.js';
+import WishList from '../components/WishList.jsx';
+import {ContentTabs, ContentTabsHeader} from '../components/ContentTabs.jsx';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 
 const mapStateToProps = state => {
   return {

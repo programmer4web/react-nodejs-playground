@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import Autocomplete from './Autocomplete.js';
+import Autocomplete from './Autocomplete.jsx';
 import {
   departmentsProductsSearch,
   departmentsProductsSelectedChanged 

@@ -3,10 +3,10 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Header from '../components/Header.js';
-import Footer from '../components/Footer.js';
-import CustomButton from '../components/CustomButton.js';
-import ProductsAutocomplete from '../components/ProductsAutocomplete.js';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import CustomButton from '../components/CustomButton.jsx';
+import ProductsAutocomplete from '../components/ProductsAutocomplete.jsx';
 
 const mapStateToProps = state => {
   return {

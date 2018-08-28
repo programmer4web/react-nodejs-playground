@@ -10,5 +10,34 @@ exports[`Initiated Wishlist matches the snapshot 1`] = `
   <ul
     className="wishlist-products-list"
   />
+  <div
+    className="modal  hidden"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="notification"
+      >
+        <img
+          alt="warning"
+          height={40}
+          src="/imgs/warning.svg"
+          width={40}
+        />
+        <div
+          className="notification-title"
+        >
+          
+        </div>
+      </div>
+      <div
+        className="custom-button modal-content-close"
+        onClick={[Function]}
+      >
+        Close
+      </div>
+    </div>
+  </div>
 </div>
 `;

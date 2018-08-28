@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import Product from './Product.js';
-import {wishlistGetIds, wishlistRemoveProduct} from '../actions/WishlistActions.js';
-import Modal from './Modal.js';
-import Notification from './Notification.js';
+import Product from './Product.jsx';
+import Modal from './Modal.jsx';
+import Notification from './Notification.jsx';
+
+import { wishlistGetIds, wishlistRemoveProduct } from '../actions/WishlistActions.js';
 
 const mapStateToProps = state => {
     return {

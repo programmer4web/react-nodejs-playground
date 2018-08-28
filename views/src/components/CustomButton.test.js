@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import CustomButton from './CustomButton.js';
+import CustomButton from './CustomButton.jsx';
 
 
 test('Initiated CustomButton matches the snapshot', () => {

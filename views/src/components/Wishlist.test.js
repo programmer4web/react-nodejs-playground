@@ -2,7 +2,7 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import renderer from 'react-test-renderer';
 
-import WishList from './Wishlist.js';
+import WishList from './Wishlist.jsx';
 import store from '../store/index';
 
 // import {wishlistAddProduct} from '../actions/index';

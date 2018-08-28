@@ -8,8 +8,8 @@ import {
   featuredProductsHandleMode,
   featuredProductsApplyFilter
 } from '../actions/FeaturedProductsActions.js';
-import Product from './Product.js';
-import CustomButton from './CustomButton';
+import Product from './Product.jsx';
+import CustomButton from './CustomButton.jsx';
 
 const mapStateToProps = state => {
     return {

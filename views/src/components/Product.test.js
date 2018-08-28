@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
-import Product from './Product.js';
+import Product from './Product.jsx';
 import store from '../store/index';
 
 const data = {

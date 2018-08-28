@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Menu from './Menu.js';
+import Menu from './Menu.jsx';
 
 const mapStateToProps = state => {
   return {

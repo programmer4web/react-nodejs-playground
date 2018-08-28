@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import CustomButton from './CustomButton.js';
+import CustomButton from './CustomButton.jsx';
 
 export default class Product extends Component {
   constructor(props) {

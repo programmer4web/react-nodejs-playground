@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import CustomButton from './CustomButton.js';
+import CustomButton from './CustomButton.jsx';
 import {modalOpen, modalClose} from '../actions/ModalActions.js';
 
 const mapStateToProps = state => {

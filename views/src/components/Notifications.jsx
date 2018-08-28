@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-connect';
 import PropTypes from 'prop-types';
 
-import Notification from './Notification';
+import Notification from './Notification.jsx';
 
 const mapStateToProps = state => {
   return {
