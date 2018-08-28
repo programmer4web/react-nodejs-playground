@@ -7,10 +7,15 @@ class Autocomplete extends Component {
     super(props);
 
     this.handleSearchChanged = this.handleSearchChanged.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   handleSearchChanged(e) {
     this.props.searchChanged(e.target.value);
+  }
+
+  handleBlur() {
+    window.setTimeout(this.props.handleBlur, 100);
   }
 
   render() {
@@ -18,13 +23,20 @@ class Autocomplete extends Component {
       items = props.items,
     className = props.className || 'autocomplete',
     suggestionsClassName = props.suggestionsVisible ? '': 'hidden';
+
+    let inputClassName = `${className}-input`; 
+    if(props.value && (!items || items.length == 0)) { // search but empty suggestions
+      inputClassName = `empty-items ${inputClassName}`;
+    }
     return (
       <div className={className}>
         <input type="text"
           placeholder={props.placeholder}
-          className={`${className}-input`}
+          className={inputClassName}
           value={props.value}
           onChange={this.handleSearchChanged}
+          onFocus={props.handleFocus}
+          onBlur={this.handleBlur}
         />
         <div className={`${className}-suggestions ${suggestionsClassName}`}>
           <Select onChange={props.selectedChanged} items={items}/>
@@ -42,5 +54,7 @@ Autocomplete.propTypes = {
   placeholder: PropTypes.string,
   className: PropTypes.string,
   searchChanged: PropTypes.func,
-  selectedChanged: PropTypes.func
+  selectedChanged: PropTypes.func,
+  handleFocus: PropTypes.func,
+  handleBlur: PropTypes.func
 }

@@ -2,7 +2,7 @@
   display: inline-block;
   position: relative;
   padding: 6px;
-  min-width: 300px;
+  min-width: 256px;
 
   .react-list-select {
     position: absolute;
@@ -29,6 +29,10 @@
 .products-autocomplete-input {
   padding: 6px;
   width: 100%;
+
+  &.empty-items {
+    border: 2px solid #e24e4e;
+  }
 }
 
 .products-autocomplete-suggestions.hidden {

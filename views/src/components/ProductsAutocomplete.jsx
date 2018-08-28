@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import Autocomplete from './Autocomplete.jsx';
 import {
   departmentsProductsSearch,
+  departmentsProductsFocus,
+  departmentsProductsBlur,
   departmentsProductsSelectedChanged 
 } from '../actions/DepartmentsProductsActions.js';
 
@@ -19,7 +21,9 @@ const mapStateToProps = state => {
   mapDispatchToProps = dispatch => {
     return {
       searchChanged: search => dispatch(departmentsProductsSearch(search)),
-      selectedChanged: id => dispatch(departmentsProductsSelectedChanged(id))
+      selectedChanged: id => dispatch(departmentsProductsSelectedChanged(id)),
+      handleFocus: () => dispatch(departmentsProductsFocus()),
+      handleBlur: () => dispatch(departmentsProductsBlur())
     }
   }
 
@@ -39,7 +43,10 @@ class ProductsAutocomplete extends Component {
         items={names}
         suggestionsVisible={props.suggestionsVisible}
         searchChanged={props.searchChanged}
-        selectedChanged={selectedChanged}/>
+        selectedChanged={selectedChanged}
+        handleFocus={props.handleFocus}
+        handleBlur={props.handleBlur}
+        />
     )
   }
 }
@@ -50,5 +57,8 @@ ProductsAutocomplete.propTypes = {
   value: PropTypes.string,
   items: PropTypes.array,
   suggestionsVisible: PropTypes.bool,
-  _selectedChanged: PropTypes.func
+  selectedChanged: PropTypes.func,
+  handleFocus: PropTypes.func,
+  handleBlur: PropTypes.func
+ 
 }

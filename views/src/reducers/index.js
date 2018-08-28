@@ -18,6 +18,8 @@ import {
   MODAL_CLOSE,
 
   DEPARTMENTS_PRODUCTS_SEARCH,
+  DEPARTMENTS_PRODUCTS_FOCUS,
+  DEPARTMENTS_PRODUCTS_BLUR,
   DEPARTMENTS_PRODUCTS_SET,
   DEPARTMENTS_PRODUCTS_SELECTED_CHANGED
   } from '../actions/action-types.js';
@@ -191,6 +193,25 @@ const rootReducer = (state = initialState, action) => {
         })
       });
 
+    case DEPARTMENTS_PRODUCTS_BLUR:
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          products: Object.assign({}, state.departments.products, {
+            suggestionsVisible: false
+          })
+        })
+      });
+    
+    case DEPARTMENTS_PRODUCTS_FOCUS:
+    console.log('VISIBLE');
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          products: Object.assign({}, state.departments.products, {
+            suggestionsVisible: true
+          })
+        })
+      });
+
     case DEPARTMENTS_PRODUCTS_SET:
       return Object.assign({}, state, {
         departments: Object.assign({}, state.departments, {
@@ -207,7 +228,7 @@ const rootReducer = (state = initialState, action) => {
           products: Object.assign({}, state.departments.products, {
             selected: payload,
             search: payload.name,
-            suggestionsVisible: false
+            // suggestionsVisible: false
           })
         })
       });
