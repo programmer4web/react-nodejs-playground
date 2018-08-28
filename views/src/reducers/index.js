@@ -21,7 +21,13 @@ import {
   DEPARTMENTS_PRODUCTS_FOCUS,
   DEPARTMENTS_PRODUCTS_BLUR,
   DEPARTMENTS_PRODUCTS_SET,
-  DEPARTMENTS_PRODUCTS_SELECTED_CHANGED
+  DEPARTMENTS_PRODUCTS_SELECTED_CHANGED,
+
+  DEPARTMENTS_SEARCH,
+  DEPARTMENTS_FOCUS,
+  DEPARTMENTS_BLUR,
+  DEPARTMENTS_SET,
+  DEPARTMENTS_SELECTED_CHANGED
   } from '../actions/action-types.js';
 
 import {
@@ -69,6 +75,10 @@ const initialState = {
     }
   },
   departments: {
+    items: [],
+    search: '',
+    selected: '',
+    suggestionsVisible: true,
     products: {
       items: [],
       search: '',
@@ -89,6 +99,7 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   const userUrl = `${state.serverUrl}users/${state.user._id}`, // get user data url
     productsUrl = `${state.serverUrl}products/`, // get products data url
+    departmentsUrl = `${state.serverUrl}departments/`,
     payload = action.payload;
 
   switch (action.type) {
@@ -203,7 +214,6 @@ const rootReducer = (state = initialState, action) => {
       });
     
     case DEPARTMENTS_PRODUCTS_FOCUS:
-    console.log('VISIBLE');
       return Object.assign({}, state, {
         departments: Object.assign({}, state.departments, {
           products: Object.assign({}, state.departments.products, {
@@ -222,14 +232,52 @@ const rootReducer = (state = initialState, action) => {
       });
 
     case DEPARTMENTS_PRODUCTS_SELECTED_CHANGED:
-    console.log('selected: ', payload);
       return Object.assign({}, state, {
         departments: Object.assign({}, state.departments, {
           products: Object.assign({}, state.departments.products, {
             selected: payload,
-            search: payload.name,
-            // suggestionsVisible: false
+            search: payload.name
           })
+        })
+      });
+
+    case DEPARTMENTS_SEARCH:
+      autocompleteSearchApiCall(departmentsUrl, payload).then(departments => {
+        action.asyncDispatch({ type: DEPARTMENTS_SET, payload: departments });
+      });
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          search: payload,
+          suggestionsVisible: true
+        })
+      });
+
+    case DEPARTMENTS_BLUR:
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          suggestionsVisible: false
+        })
+      });
+
+    case DEPARTMENTS_FOCUS:
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          suggestionsVisible: true
+        })
+      });
+
+    case DEPARTMENTS_SET:
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          items: payload
+        })
+      });
+
+    case DEPARTMENTS_SELECTED_CHANGED:
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          selected: payload,
+          search: payload.name
         })
       });
 

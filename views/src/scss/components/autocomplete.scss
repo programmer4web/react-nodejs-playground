@@ -1,4 +1,6 @@
-.autocomplete, .products-autocomplete {
+.autocomplete,
+.products-autocomplete,
+.departments-autocomplete {
   display: inline-block;
   position: relative;
   padding: 6px;
@@ -14,6 +16,7 @@
     box-shadow: 0 1px 16px rgba(4, 26, 55, 0.25);
     box-sizing: border-box;
     left: 10px;
+    z-index: 1;
   }
 
   .react-list-select--item {
@@ -26,7 +29,8 @@
   }
 }
 
-.products-autocomplete-input {
+.products-autocomplete-input,
+.departments-autocomplete-input {
   padding: 6px;
   width: 100%;
 
@@ -35,6 +39,7 @@
   }
 }
 
-.products-autocomplete-suggestions.hidden {
+.products-autocomplete-suggestions.hidden,
+.departments-autocomplete-suggestions.hidden {
   display: none;
 }

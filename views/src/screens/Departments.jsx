@@ -7,6 +7,7 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import CustomButton from '../components/CustomButton.jsx';
 import ProductsAutocomplete from '../components/ProductsAutocomplete.jsx';
+import DepartmentsAutocomplete from '../components/DepartmentsAutocomplete.jsx';
 
 const mapStateToProps = state => {
   return {
@@ -36,12 +37,12 @@ class Departments extends Component {
     axios.get(`${this.props.serverUrl}departments`).then(result => {
       this.setState({ departments: result.data });
     });
-    this.getUnassignedProducts();
+    // this.getUnassignedProducts();
 
   }
-  getUnassignedProducts(){
+  getUnassignedProducts() {
   axios.get(`${this.props.serverUrl}products`).then(result => {
-    const resultFiltered = result.data.filter(product =>  product.departments.length == 0 );
+    const resultFiltered = result.data.filter(product => product.departments.length == 0 );
     this.setState({products: resultFiltered});
   })
 }
@@ -99,7 +100,8 @@ class Departments extends Component {
               <div className="module">
                 <div className="departments">
                   <h3>Products list</h3>
-                  <ProductsAutocomplete/>
+                  <div><ProductsAutocomplete/></div>
+                  <div><DepartmentsAutocomplete/></div>
                   <hr />
                   <h3>Departments List</h3>
                   {this.state.departments.map(department => {

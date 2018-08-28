@@ -21,10 +21,18 @@ router.post('/', (req, res) => {
 
 // RETURNS ALL THE DEPARTMENTS IN THE DATABASE
 router.get('/', (req, res) => {
-    Department.find({}, (err, departments) => {
+    const search = req.query.search,
+        limit = req.query.limit || 50;
+    let condition = {};
+
+    if (search) {
+        condition = { name: { $regex: search, $options: 'i' } };
+    }
+
+    Department.find(condition, (err, departments) => {
         if (err) return res.status(500).send("There was a problem finding the departments.");
         res.status(200).send(departments);
-    });
+    }).limit(limit);
 });
 
 // GETS A SINGLE DEPARTMENT FROM THE DATABASE
