@@ -22,11 +22,11 @@ router.get('/', (req, res) => {
     let departments = req.query.departments;
 
     if(departments && departments.length > 0){
-      condition={ $and: [ condition, {departments: {$in: departments}}]};
+      condition={$and: [condition, {departments: {$in: departments}}]};
     }
 
     if(search) {
-      condition = { name: { $regex: search, $options: 'i' } }
+      condition = {$and: [condition, {name: { $regex: search, $options: 'i' }}]};
     }
 
   Product.find(condition, (err, products) => {
