@@ -11,8 +11,9 @@ import {
 const mapStateToProps = state => {
     const products = state.departments.products;
     return {
-      search: products.search,
-      items: products.items
+      value: products.search,
+      items: products.items,
+      suggestionsVisible: products.suggestionsVisible 
     }
   },
   mapDispatchToProps = dispatch => {
@@ -34,8 +35,9 @@ class ProductsAutocomplete extends Component {
     return (
       <Autocomplete placeholder="Search Products..."
         className="products-autocomplete"
-        search={props.search}
+        value={props.value}
         items={names}
+        suggestionsVisible={props.suggestionsVisible}
         searchChanged={props.searchChanged}
         selectedChanged={selectedChanged}/>
     )
@@ -45,7 +47,8 @@ class ProductsAutocomplete extends Component {
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsAutocomplete);
 
 ProductsAutocomplete.propTypes = {
-  search: PropTypes.string,
+  value: PropTypes.string,
   items: PropTypes.array,
+  suggestionsVisible: PropTypes.bool,
   _selectedChanged: PropTypes.func
 }

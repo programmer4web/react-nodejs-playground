@@ -70,7 +70,8 @@ const initialState = {
     products: {
       items: [],
       search: '',
-      selected: {}
+      selected: {},
+      suggestionsVisible: true
     }
   },
   notifications: {
@@ -181,7 +182,14 @@ const rootReducer = (state = initialState, action) => {
       autocompleteSearchApiCall(productsUrl, payload).then(products => {
         action.asyncDispatch({type: DEPARTMENTS_PRODUCTS_SET, payload: products});
       });
-      return state;
+      return Object.assign({}, state, {
+        departments: Object.assign({}, state.departments, {
+          products: Object.assign({}, state.departments.products, {
+            search: payload,
+            suggestionsVisible: true
+          })
+        })
+      });
 
     case DEPARTMENTS_PRODUCTS_SET:
       return Object.assign({}, state, {
@@ -198,6 +206,8 @@ const rootReducer = (state = initialState, action) => {
         departments: Object.assign({}, state.departments, {
           products: Object.assign({}, state.departments.products, {
             selected: payload,
+            search: payload.name,
+            suggestionsVisible: false
           })
         })
       });

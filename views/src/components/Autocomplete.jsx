@@ -9,23 +9,26 @@ class Autocomplete extends Component {
     this.handleSearchChanged = this.handleSearchChanged.bind(this);
   }
 
-  handleSearchChanged (e){
+  handleSearchChanged(e) {
     this.props.searchChanged(e.target.value);
   }
 
   render() {
     const props = this.props,
       items = props.items,
-    className = props.className || 'autocomplete';
+    className = props.className || 'autocomplete',
+    suggestionsClassName = props.suggestionsVisible ? '': 'hidden';
     return (
       <div className={className}>
         <input type="text"
           placeholder={props.placeholder}
           className={`${className}-input`}
-          defaultValue={props.search}
+          value={props.value}
           onChange={this.handleSearchChanged}
         />
-        <Select onChange={props.selectedChanged} items={items}/>
+        <div className={`${className}-suggestions ${suggestionsClassName}`}>
+          <Select onChange={props.selectedChanged} items={items}/>
+        </div>
       </div>
     );
   }
@@ -34,7 +37,7 @@ class Autocomplete extends Component {
 export default Autocomplete;
 
 Autocomplete.propTypes = {
-  search: PropTypes.string,
+  value: PropTypes.string,
   items: PropTypes.array,
   placeholder: PropTypes.string,
   className: PropTypes.string,
