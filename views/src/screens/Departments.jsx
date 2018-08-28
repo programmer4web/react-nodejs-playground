@@ -9,12 +9,19 @@ import CustomButton from '../components/CustomButton.jsx';
 import ProductsAutocomplete from '../components/ProductsAutocomplete.jsx';
 import DepartmentsAutocomplete from '../components/DepartmentsAutocomplete.jsx';
 
+import {departmentsProductAdd} from '../actions/DepartmentsProductsActions.js';
+
 const mapStateToProps = state => {
   return {
     serverUrl: state.serverUrl,
     user: state.user,
     links: state.links,
     product: state.departments.products.selected
+  }
+},
+mapDispatchToProps = dispatch => {
+  return {
+    departmentsProductAdd: () => dispatch(departmentsProductAdd())
   }
 }
 
@@ -102,6 +109,8 @@ class Departments extends Component {
                   <h3>Products list</h3>
                   <div><ProductsAutocomplete/></div>
                   <div><DepartmentsAutocomplete/></div>
+                  <CustomButton className="department-product-add" callback={this.props.departmentsProductAdd}
+                    text="Add product in department" />
                   <hr />
                   <h3>Departments List</h3>
                   {this.state.departments.map(department => {
@@ -150,10 +159,11 @@ class Departments extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Departments);
+export default connect(mapStateToProps, mapDispatchToProps)(Departments);
 
 Departments.propTypes = {
   serverUrl: PropTypes.string,
   links: PropTypes.array,
-  product: PropTypes.object
+  product: PropTypes.object,
+  departmentsProductAdd: PropTypes.func
 }

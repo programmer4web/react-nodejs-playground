@@ -4,6 +4,7 @@ import {
   DEPARTMENTS_PRODUCTS_BLUR,
   DEPARTMENTS_PRODUCTS_SET,
   DEPARTMENTS_PRODUCTS_SELECTED_CHANGED,
+  DEPARTMENTS_PRODUCT_ADD
 } from './action-types';
 
 export const departmentsProductsSearch = search => ({
@@ -30,3 +31,8 @@ export const departmentsProductsSelectedChanged = product => ({
   type: DEPARTMENTS_PRODUCTS_SELECTED_CHANGED,
   payload: product
 });
+
+export const departmentsProductAdd = () => ({
+  type: DEPARTMENTS_PRODUCT_ADD,
+  payload: null
+})

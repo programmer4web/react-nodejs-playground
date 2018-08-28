@@ -27,7 +27,8 @@ import {
   DEPARTMENTS_FOCUS,
   DEPARTMENTS_BLUR,
   DEPARTMENTS_SET,
-  DEPARTMENTS_SELECTED_CHANGED
+  DEPARTMENTS_SELECTED_CHANGED,
+  DEPARTMENTS_PRODUCT_ADD
   } from '../actions/action-types.js';
 
 import {
@@ -44,6 +45,7 @@ import {
 import {featuredProductsApplyFilterReducer} from './FeaturedProductsReducers.js';
 
 import {autocompleteSearchApiCall} from '../apiCall/AutocompleteApiCall.js';
+import {departmentsProductAddApiCall} from '../apiCall/DepartmentsProductsApiCall.js';
 
 const initialState = {
   serverUrl: 'http://127.0.0.1:7070/',
@@ -240,6 +242,16 @@ const rootReducer = (state = initialState, action) => {
           })
         })
       });
+
+    case DEPARTMENTS_PRODUCT_ADD:
+      departmentsProductAddApiCall(`${productsUrl}${state.departments.products.selected._id}`,
+        state.departments.products.selected.departments,
+        state.departments.selected
+      ).then(product => {
+        console.log('updated product: ', product);
+      }).catch(err => console.warn(err));
+
+    return state;
 
     case DEPARTMENTS_SEARCH:
       autocompleteSearchApiCall(departmentsUrl, payload).then(departments => {
