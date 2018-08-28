@@ -3,6 +3,16 @@ import Select from 'react-list-select';
 import PropTypes from 'prop-types';
 
 class Autocomplete extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSearchChanged = this.handleSearchChanged.bind(this);
+  }
+
+  handleSearchChanged (e){
+    this.props.searchChanged(e.target.value);
+  }
+
   render() {
     const props = this.props,
       items = props.items,
@@ -13,7 +23,7 @@ class Autocomplete extends Component {
           placeholder={props.placeholder}
           className={`${className}-input`}
           defaultValue={props.search}
-          onChange={(e) => props.searchChanged(e.target.value)}
+          onChange={this.handleSearchChanged}
         />
         <Select onChange={props.selectedChanged} items={items}/>
       </div>
