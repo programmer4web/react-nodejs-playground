@@ -85,7 +85,8 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   const userUrl = `${state.serverUrl}users/${state.user._id}`, // get user data url
-    productsUrl = `${state.serverUrl}products/`; // get products data url
+    productsUrl = `${state.serverUrl}products/`, // get products data url
+    payload = action.payload;
 
   switch (action.type) {
     case WISHLIST_GET_IDS:
@@ -95,38 +96,38 @@ const rootReducer = (state = initialState, action) => {
       return state;
 
     case WISHLIST_ADD_PRODUCT:
-      wishlistAddProductApiCall(action.payload, userUrl).then(wishlist => {
+      wishlistAddProductApiCall(payload, userUrl).then(wishlist => {
         action.asyncDispatch({type: WISHLIST_SET_IDS, payload: wishlist});
       }).catch(err => action.asyncDispatch({type: WISHLIST_ERROR, payload: err})
         );
       return state;
 
     case WISHLIST_REMOVE_PRODUCT:
-      wishlistRemoveProductApiCall(action.payload, userUrl).then(wishlist => {
+      wishlistRemoveProductApiCall(payload, userUrl).then(wishlist => {
         action.asyncDispatch({type: WISHLIST_SET_IDS, payload: wishlist});
       }).catch(err => console.warn(err));
       return state;
 
     case WISHLIST_SET_IDS:
-      action.asyncDispatch({type: WISHLIST_GET_PRODUCTS, payload: action.payload});
+      action.asyncDispatch({type: WISHLIST_GET_PRODUCTS, payload: payload});
       return Object.assign({}, state, {
-        user: Object.assign({}, state.user, {wishlist: action.payload})
+        user: Object.assign({}, state.user, {wishlist: payload})
       });
 
     case WISHLIST_GET_PRODUCTS:
-      wishlistGetProductsApiCall(action.payload, productsUrl).then(wishlistProducts => {
+      wishlistGetProductsApiCall(payload, productsUrl).then(wishlistProducts => {
         action.asyncDispatch({type: WISHLIST_SET_PRODUCTS, payload: wishlistProducts});
       }).catch(err => console.warn(err));
       return state;
 
     case WISHLIST_SET_PRODUCTS:
       return Object.assign({}, state, {
-        user: Object.assign({}, state.user, {wishlistProducts: action.payload})
+        user: Object.assign({}, state.user, {wishlistProducts: payload})
       });
 
     case WISHLIST_ERROR:
       return Object.assign({}, state, {
-        user: Object.assign({}, state.user, {wishlistError: action.payload}),
+        user: Object.assign({}, state.user, {wishlistError: payload}),
         modal: {status: true}
       });
 
@@ -137,24 +138,24 @@ const rootReducer = (state = initialState, action) => {
       return state;
 
     case FEATUREDPRODUCTS_SET_SOURCE:
-      action.asyncDispatch({type: FEATUREDPRODUCTS_SET_VISIBLE, payload: action.payload});
+      action.asyncDispatch({type: FEATUREDPRODUCTS_SET_VISIBLE, payload: payload});
       return Object.assign({}, state, {
-        featuredProducts: Object.assign({}, state.featuredProducts, {source: action.payload})
+        featuredProducts: Object.assign({}, state.featuredProducts, {source: payload})
       });
 
     case FEATUREDPRODUCTS_SET_VISIBLE:
       return Object.assign({}, state, {
-        featuredProducts: Object.assign({}, state.featuredProducts, {visible: action.payload})
+        featuredProducts: Object.assign({}, state.featuredProducts, {visible: payload})
       });
 
     case FEATUREDPRODUCTS_HANDLE_MODE:
       return Object.assign({}, state, {
-        featuredProducts: Object.assign({}, state.featuredProducts, {mode: action.payload})
+        featuredProducts: Object.assign({}, state.featuredProducts, {mode: payload})
       });
 
     case FEATUREDPRODUCTS_APPLY_FILTER:
-      action.asyncDispatch({type: FEATUREDPRODUCTS_SET_FILTERS, payload: action.payload});
-      featuredProductsApplyFilterReducer(action.payload).then(visible => {
+      action.asyncDispatch({type: FEATUREDPRODUCTS_SET_FILTERS, payload: payload});
+      featuredProductsApplyFilterReducer(payload).then(visible => {
         action.asyncDispatch({type: FEATUREDPRODUCTS_SET_VISIBLE, payload: visible});
       });
       return state;
@@ -162,7 +163,7 @@ const rootReducer = (state = initialState, action) => {
     case FEATUREDPRODUCTS_SET_FILTERS:
     return Object.assign({}, state, {
       featuredProducts: Object.assign({}, state.featuredProducts, {
-        filters: Object.assign({}, state.featuredProducts.filters, {[action.payload.task]: action.payload.value})
+        filters: Object.assign({}, state.featuredProducts.filters, {[payload.task]: payload.value})
       })
     });
 
@@ -177,7 +178,7 @@ const rootReducer = (state = initialState, action) => {
       });
 
     case DEPARTMENTS_PRODUCTS_SEARCH:
-      autocompleteSearchApiCall(productsUrl, action.payload).then(products => {
+      autocompleteSearchApiCall(productsUrl, payload).then(products => {
         action.asyncDispatch({type: DEPARTMENTS_PRODUCTS_SET, payload: products});
       });
       return state;
@@ -186,17 +187,17 @@ const rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         departments: Object.assign({}, state.departments, {
           products: Object.assign({}, state.departments.products, {
-            items: action.payload
+            items: payload
           })
         })
       });
 
     case DEPARTMENTS_PRODUCTS_SELECTED_CHANGED:
-    console.log('selected: ', action.payload);
+    console.log('selected: ', payload);
       return Object.assign({}, state, {
         departments: Object.assign({}, state.departments, {
           products: Object.assign({}, state.departments.products, {
-            selected: action.payload
+            selected: payload,
           })
         })
       });
