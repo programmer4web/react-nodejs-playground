@@ -1,4 +1,4 @@
-export const featuredProductsApplyFilterReducer = (payload) => {
+export const featuredProductsApplyFilters = (payload) => {
   return new Promise((resolve) => {
     const {task, value, filters, source} = payload,
       setFilters = (task, value, filters) => {
