@@ -8,7 +8,7 @@ import Footer from '../components/Footer.jsx';
 import CustomButton from '../components/CustomButton.jsx';
 import ProductsAutocomplete from '../components/ProductsAutocomplete.jsx';
 import DepartmentsAutocomplete from '../components/DepartmentsAutocomplete.jsx';
-
+import DepartmentAttributes from '../components/DepartmentAttributes.jsx';
 import {departmentsProductAdd} from '../actions/DepartmentsProductsActions.js';
 
 const mapStateToProps = state => {
@@ -96,22 +96,8 @@ class Departments extends Component {
                     text="Add product in department" />
                   <hr />
                   <h3>Departments List</h3>
-                  {this.state.departments.map(department => {
-                    return (
-                      <div key={department._id}>
-                        <div className="department-attribute">
-                          <span>Name:</span> {department.name}
-                        </div>
-                        <div className="department-attribute">
-                          <span>Abbreviation:</span> {department.abbreviation}
-                        </div>
-                        <div className="department-attribute">
-                          <span>Description:</span> {department.description}
-                        </div>
-                        <hr />
-                      </div>
-                    )
-                  }
+                  {this.state.departments.map(department => 
+                    <DepartmentAttributes department={department} key={department._id}/>
                   )}
                 </div>
               </div>
