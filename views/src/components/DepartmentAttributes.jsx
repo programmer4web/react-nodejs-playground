@@ -6,7 +6,7 @@ class DepartmentAttributes extends Component {
   render() {
     const department = this.props.department;
     return (
-      <div key={department._id}>
+      <div className="department-attributes">
         <div className="department-attribute">
           <span>Name:</span> {department.name}
         </div>
