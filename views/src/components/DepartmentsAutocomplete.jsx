@@ -28,6 +28,11 @@ const mapStateToProps = state => {
   }
 
 class DepartmentsAutocomplete extends Component {
+  componentDidMount(){
+    this.props.searchChanged('');
+    this.props.handleBlur();
+  }
+
   render() {
     const props = this.props,
       items = props.items,
@@ -57,8 +62,8 @@ DepartmentsAutocomplete.propTypes = {
   value: PropTypes.string,
   items: PropTypes.array,
   suggestionsVisible: PropTypes.bool,
+  searchChanged: PropTypes.func,
   selectedChanged: PropTypes.func,
   handleFocus: PropTypes.func,
   handleBlur: PropTypes.func
- 
 }

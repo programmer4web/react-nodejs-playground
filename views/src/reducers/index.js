@@ -37,12 +37,12 @@ const initialState = {
     items: [],
     search: '',
     selected: '',
-    suggestionsVisible: true,
+    suggestionsVisible: false,
     products: {
       items: [],
       search: '',
       selected: {},
-      suggestionsVisible: true
+      suggestionsVisible: false
     }
   },
   notifications: {
