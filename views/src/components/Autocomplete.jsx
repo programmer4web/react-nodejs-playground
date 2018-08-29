@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import Select from 'react-list-select';
 import PropTypes from 'prop-types';
 
+import CustomButton from './CustomButton.jsx';
+
 class Autocomplete extends Component {
   constructor(props) {
     super(props);
 
     this.handleSearchChanged = this.handleSearchChanged.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
 
   handleSearchChanged(e) {
@@ -16,6 +19,11 @@ class Autocomplete extends Component {
 
   handleBlur() {
     window.setTimeout(this.props.handleBlur, 100);
+  }
+
+  handleClear() {
+    this.props.searchChanged('');
+    this.props.handleBlur();
   }
 
   render() {
@@ -38,6 +46,9 @@ class Autocomplete extends Component {
           onFocus={props.handleFocus}
           onBlur={this.handleBlur}
         />
+        <CustomButton text="X" title="Clear"
+          callback={this.handleClear}
+          className="custom-button-clear"/>
         <div className={`${className}-suggestions ${suggestionsClassName}`}>
           <Select onChange={props.selectedChanged} items={items}/>
         </div>

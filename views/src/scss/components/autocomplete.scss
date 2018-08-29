@@ -32,7 +32,7 @@
 .products-autocomplete-input,
 .departments-autocomplete-input {
   padding: 6px;
-  width: 100%;
+  width: 80%;
 
   &.empty-items {
     border: 2px solid #e24e4e;
@@ -42,4 +42,9 @@
 .products-autocomplete-suggestions.hidden,
 .departments-autocomplete-suggestions.hidden {
   display: none;
+}
+
+.custom-button.custom-button-clear {
+  margin: 0 0 0 12px;
+  padding: 6px;
 }
