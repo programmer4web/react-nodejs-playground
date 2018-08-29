@@ -36,7 +36,6 @@ class Departments extends Component {
 
     this.handleDepartmentChange = this.handleDepartmentChange.bind(this);
     this.handleRemoveOnClick = this.handleRemoveOnClick.bind(this);
-    this.handleDepartmentAdd=this.handleDepartmentAdd.bind(this);
     this.getUnassignedProducts=this.getUnassignedProducts.bind(this);
   }
 
@@ -66,22 +65,6 @@ class Departments extends Component {
     });
   }
 
-  handleDepartmentAdd(e, departmentId) {
-    const product = this.props.product;
-    if(!product) {
-      console.warn('No product selected in Products List.');
-      return;
-    }
-    const departments = product.departments || [] ;
-
-    departments.push(departmentId);
-    console.log(product._id);
-    axios.put(`${this.props.serverUrl}products/${product._id}`,{ departments}).then( result => {
-      console.log(result.data);
-      this.getUnassignedProducts();
-    })
-  }
-
   handleRemoveOnClick(e, product) {
     const departments = product.departments,
       idx = departments.indexOf(this.state.departmentId);
@@ -106,7 +89,7 @@ class Departments extends Component {
             <div className="box">
               <div className="module">
                 <div className="departments">
-                  <h3>Products list</h3>
+                  <h3>Add Product in Department</h3>
                   <div><ProductsAutocomplete/></div>
                   <div><DepartmentsAutocomplete/></div>
                   <CustomButton className="department-product-add" callback={this.props.departmentsProductAdd}
@@ -116,11 +99,15 @@ class Departments extends Component {
                   {this.state.departments.map(department => {
                     return (
                       <div key={department._id}>
-                        <div>Department Name:{department.name}</div>
-                        <div>Abbreviation: {department.abbreviation}</div>
-                        <div>Description: {department.description}</div>
-                        <CustomButton className="department-product-add" callback={e => this.handleDepartmentAdd(e, department._id)}
-                          text="Add product in department" />
+                        <div className="department-attribute">
+                          <span>Name:</span> {department.name}
+                        </div>
+                        <div className="department-attribute">
+                          <span>Abbreviation:</span> {department.abbreviation}
+                        </div>
+                        <div className="department-attribute">
+                          <span>Description:</span> {department.description}
+                        </div>
                         <hr />
                       </div>
                     )
