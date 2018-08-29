@@ -28,7 +28,7 @@ export default class ContentTabs extends Component {
         { tabs && tabs.map((tab, idx) => {
           let className = "content-tabs-tab";
           if(this.state.selected == idx) {
-            className+= 'selected';
+            className+= ' selected';
           }
           return (
             <div className={className}  ref={`tab-content-${idx}`} key={`tab-content-${idx}`}>

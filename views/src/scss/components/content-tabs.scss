@@ -37,4 +37,8 @@
 
 .content-tabs-tab {
   display: none;
+
+  &.selected {
+    display:inline-block;
+  }
 }

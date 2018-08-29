@@ -70,9 +70,18 @@ class Home extends React.Component {
                 <div dataId="tab2">Tab 2</div>
                 <div dataId="tab3">Tab 3</div>
               </ContentTabsHeader>
-              <div>Content of tab 1</div>
-              <div>Content of tab 2</div>
-              <div>Content of tab 3</div>
+                <div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  <p> Suspendisse pulvinar vitae sem quis interdum.</p>
+                </div>
+                <div>
+                  <p>Duis a sodales purus. Praesent sed dignissim augue.</p>
+                  <p>Cras sodales, dui ac ornare eleifend, odio nisi iaculis nunc, in congue mi sapien sed metus.</p>
+                </div>
+                <div>
+                  <p>Sare ut placerat urna, sit amet ornare enim.</p>
+                  <p>Proin laoreet consectetur condimentum.</p>
+                </div>
             </ContentTabs>
 
           </TabPanel>
