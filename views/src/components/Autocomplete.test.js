@@ -49,10 +49,22 @@ test('onBlur triggers handleBlur', done => {
   component.find('input').simulate('blur', {});
   expect(spy).toHaveBeenCalled();
   done();
-})
+});
 
-test('if value and no items empty-items className is added', () => {
+test('if value and no items, empty-items className is added', () => {
   const component = mount(<Autocomplete value="abc" />),
     input = component.find('input');
   expect(input.hasClass('empty-items')).toBe(true);
-})
+});
+
+test('if value and items is empty array, empty-items className is added', () => {
+  const component = mount(<Autocomplete value="abc" items={[]}/>),
+    input = component.find('input');
+  expect(input.hasClass('empty-items')).toBe(true);
+});
+
+test('suggestionsVisible true removes hidden className from Select', () => {
+  const component = mount(<Autocomplete suggestionsVisible={true} />),
+    suggestions = component.find('.autocomplete-suggestions');
+  expect(suggestions.hasClass('hidden')).toBe(false);
+});
