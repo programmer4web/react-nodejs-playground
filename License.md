@@ -1,6 +1,7 @@
 MIT License
 
-Copyright (c) 2018
+Copyright (c) 2022
+
 Adnan Rahić - nodejs-restful-api
 Temi Lajumoke - react-webpack-starter
 

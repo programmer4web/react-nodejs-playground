@@ -56,16 +56,20 @@ or
 ```bash
  npm run build
 ```
-## Runing the nodejs-api
+## Running the nodejs-api
+To run this example you must create a mongodb.com database and modify the MONGO_URI in example.env.
+Rename the example.env as .env
+
 cd nodejs-restful-api
-Run yarn run start
+
+Run: yarn run start
 
  Navigate to [http://127.0.0.1:7070/](http://127.0.0.1:7070). 
 
 
 ## Running the Views in Development
 
-Run `npm start` to intialize and run the webpack development server. Navigate to [http://127.0.0.1:3000/](http://127.0.0.1:3000). 
+Run `npm start` to initialize and run the webpack development server. Navigate to [http://127.0.0.1:3000/](http://127.0.0.1:3000). 
 The app will automatically reload if you change any of the source files.
 
 ## Running the app in Production
@@ -82,4 +86,4 @@ or
 
 ## LICENSE
 
-#### [MIT](./LICENSE)
+#### [MIT](./License.md)
